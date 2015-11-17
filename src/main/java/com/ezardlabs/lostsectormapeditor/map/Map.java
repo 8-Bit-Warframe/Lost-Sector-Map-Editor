@@ -1,4 +1,4 @@
-package com.ezardlabs.lostsectormapeditor.gui;
+package com.ezardlabs.lostsectormapeditor.map;
 
 public class Map {
 

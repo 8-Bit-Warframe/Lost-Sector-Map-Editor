@@ -13,28 +13,24 @@ import javax.swing.DropMode;
 import javax.swing.JList;
 import javax.swing.TransferHandler;
 
-public class DragDropList extends JList<String> {
-	private DefaultListModel<String> model;
+public class DragDropList<T> extends JList<T> {
+	private DefaultListModel<T> model;
 
 	public DragDropList() {
-		super(new DefaultListModel<String>());
-		model = (DefaultListModel<String>) getModel();
+		super(new DefaultListModel<T>());
+		model = (DefaultListModel<T>) getModel();
 		setDragEnabled(true);
 		setDropMode(DropMode.INSERT);
 
 		setTransferHandler(new ListDropHandler(this));
 
 		new DragListener(this);
-
-		model.addElement("a");
-		model.addElement("b");
-		model.addElement("c");
 	}
 
-	public void setData(Object[] data) {
+	public void setData(T[] data) {
 		model.clear();
-		for (Object o : data) {
-			model.addElement(o.toString());
+		for (T datum : data) {
+			model.addElement(datum);
 		}
 	}
 
@@ -87,10 +83,10 @@ public class DragDropList extends JList<String> {
 			JList.DropLocation dl = (JList.DropLocation) support.getDropLocation();
 			int dropTargetIndex = dl.getIndex();
 
-			String s = model.remove(index);
+			T t = model.remove(index);
 
 			if (index == 0 && (dropTargetIndex == 0 || dropTargetIndex == 1)) {
-				model.add(index, s);
+				model.add(index, t);
 				return false;
 			}
 
@@ -98,7 +94,7 @@ public class DragDropList extends JList<String> {
 				dropTargetIndex--;
 			}
 
-			model.add(dropTargetIndex, s);
+			model.add(dropTargetIndex, t);
 			return true;
 		}
 	}

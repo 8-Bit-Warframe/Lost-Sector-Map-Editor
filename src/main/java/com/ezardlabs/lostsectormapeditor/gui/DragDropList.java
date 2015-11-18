@@ -34,6 +34,10 @@ public class DragDropList<T> extends JList<T> {
 		}
 	}
 
+	public void addDatum(T datum) {
+		model.addElement(datum);
+	}
+
 	private class DragListener {
 		private DragDropList list;
 		private DragSource ds = new DragSource();

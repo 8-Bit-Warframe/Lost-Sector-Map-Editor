@@ -2,6 +2,7 @@ package com.ezardlabs.lostsectormapeditor.gui;
 
 import com.ezardlabs.lostsectormapeditor.map.Map;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
@@ -14,7 +15,7 @@ import java.awt.event.MouseWheelListener;
 import javax.swing.JPanel;
 
 public class MapPanel extends JPanel {
-	private Map map = new Map(100, 100);
+	private Map map;
 	private Point camera = new Point();
 	private double zoom = 1;
 
@@ -83,10 +84,13 @@ public class MapPanel extends JPanel {
 
 	public void setMap(Map map) {
 		this.map = map;
+		repaint();
 	}
 
 	@Override
 	public void paint(Graphics g) {
+		g.setColor(Color.BLACK);
+		g.fillRect(0, 0, getWidth(), getHeight());
 		if (map != null) {
 			map.draw((Graphics2D) g, camera, zoom);
 		}

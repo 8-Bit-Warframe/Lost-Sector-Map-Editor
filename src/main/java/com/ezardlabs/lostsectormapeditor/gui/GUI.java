@@ -4,30 +4,26 @@ import javax.swing.JFrame;
 import javax.swing.JSplitPane;
 import javax.swing.JTabbedPane;
 import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.WindowConstants;
 
 public class GUI extends JFrame {
-	private MapPanel mapPanel;
-	private LayerPanel layerPanel;
-	private JTabbedPane tabPanel;
-
-	public GUI() {
+	static {
 		try {
 			UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		} catch (InstantiationException e) {
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
-			e.printStackTrace();
-		} catch (UnsupportedLookAndFeelException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	private static final MapPanel mapPanel = new MapPanel();
+	private static final LayerPanel layerPanel = new LayerPanel();
+	private static final JTabbedPane tabPanel = new JTabbedPane();
+
+	public GUI() {
 		setJMenuBar(new MenuBar());
 
-		JSplitPane sideBar = new JSplitPane(JSplitPane.VERTICAL_SPLIT, tabPanel = new JTabbedPane(), layerPanel = new LayerPanel());
-		JSplitPane main = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, mapPanel = new MapPanel(), sideBar);
+		JSplitPane sideBar = new JSplitPane(JSplitPane.VERTICAL_SPLIT, tabPanel, layerPanel);
+		JSplitPane main = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, mapPanel, sideBar);
 		add(main);
 
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -37,5 +33,9 @@ public class GUI extends JFrame {
 
 		sideBar.setDividerLocation((int) (0.5 * getHeight()));
 		main.setDividerLocation((int) (0.8 * getWidth()));
+	}
+
+	public static MapPanel getMapPanel() {
+		return mapPanel;
 	}
 }

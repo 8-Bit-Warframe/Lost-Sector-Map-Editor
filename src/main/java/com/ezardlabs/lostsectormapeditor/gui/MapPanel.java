@@ -74,6 +74,7 @@ public class MapPanel extends JPanel {
 			@Override
 			public void mouseWheelMoved(MouseWheelEvent e) {
 				zoom -= e.getPreciseWheelRotation() * 0.25;
+				if (zoom == 0) zoom = 0.25;
 				repaint();
 			}
 		});

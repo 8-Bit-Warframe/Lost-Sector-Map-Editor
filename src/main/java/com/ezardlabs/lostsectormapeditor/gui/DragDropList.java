@@ -27,6 +27,12 @@ public class DragDropList<T> extends JList<T> {
 		new DragListener(this);
 	}
 
+	public void removeSelected() {
+		if (getSelectedIndex() >= 0) {
+			model.remove(getSelectedIndex());
+		}
+	}
+
 	public void setData(T[] data) {
 		model.clear();
 		for (T datum : data) {

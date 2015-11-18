@@ -10,7 +10,6 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
-import java.awt.image.BufferedImage;
 
 import javax.swing.JPanel;
 
@@ -78,6 +77,7 @@ public class MapPanel extends JPanel {
 				repaint();
 			}
 		});
+		setDoubleBuffered(true);
 	}
 
 	public void setMap(Map map) {
@@ -86,13 +86,8 @@ public class MapPanel extends JPanel {
 
 	@Override
 	public void paint(Graphics g) {
-		BufferedImage buffer = new BufferedImage(getWidth(), getHeight(), BufferedImage.TYPE_4BYTE_ABGR);
-		Graphics2D graphics = (Graphics2D) buffer.getGraphics();
-
 		if (map != null) {
-			map.draw(graphics, camera, zoom);
+			map.draw((Graphics2D) g, camera, zoom);
 		}
-
-		g.drawImage(buffer, 0, 0, this);
 	}
 }

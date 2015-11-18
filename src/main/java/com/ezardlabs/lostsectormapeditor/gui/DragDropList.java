@@ -1,5 +1,6 @@
 package com.ezardlabs.lostsectormapeditor.gui;
 
+import java.awt.Font;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.StringSelection;
 import java.awt.datatransfer.Transferable;
@@ -24,6 +25,7 @@ public class DragDropList<T> extends JList<T> {
 
 		setTransferHandler(new ListDropHandler(this));
 
+		setFont(new Font(getFont().getName(), Font.PLAIN, 15));
 		new DragListener(this);
 	}
 
@@ -105,6 +107,7 @@ public class DragDropList<T> extends JList<T> {
 			}
 
 			model.add(dropTargetIndex, t);
+			setSelectedIndex(dropTargetIndex);
 			return true;
 		}
 	}

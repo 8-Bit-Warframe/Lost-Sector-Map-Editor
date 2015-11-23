@@ -21,4 +21,9 @@ public class Layer {
 	public void draw(Graphics2D g, Point camera, double zoom) {
 
 	}
+
+	@Override
+	public String toString() {
+		return name;
+	}
 }

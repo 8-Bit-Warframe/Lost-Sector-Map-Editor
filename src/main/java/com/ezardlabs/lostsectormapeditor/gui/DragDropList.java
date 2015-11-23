@@ -1,5 +1,7 @@
 package com.ezardlabs.lostsectormapeditor.gui;
 
+import com.ezardlabs.lostsectormapeditor.map.Layer;
+
 import java.awt.Font;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.StringSelection;
@@ -14,36 +16,18 @@ import javax.swing.DropMode;
 import javax.swing.JList;
 import javax.swing.TransferHandler;
 
-public class DragDropList<T> extends JList<T> {
-	private DefaultListModel<T> model;
+public class DragDropList extends JList<Layer> {
 
 	public DragDropList() {
-		super(new DefaultListModel<T>());
-		model = (DefaultListModel<T>) getModel();
+		super(new DefaultListModel<Layer>());
+		setModel(Layer.layers);
 		setDragEnabled(true);
 		setDropMode(DropMode.INSERT);
 
-		setTransferHandler(new ListDropHandler(this));
+		setTransferHandler(new ListDropHandler());
 
 		setFont(new Font(getFont().getName(), Font.PLAIN, 15));
 		new DragListener(this);
-	}
-
-	public void removeSelected() {
-		if (getSelectedIndex() >= 0) {
-			model.remove(getSelectedIndex());
-		}
-	}
-
-	public void setData(T[] data) {
-		model.clear();
-		for (T datum : data) {
-			model.addElement(datum);
-		}
-	}
-
-	public void addDatum(T datum) {
-		model.addElement(datum);
 	}
 
 	private class DragListener {
@@ -64,11 +48,6 @@ public class DragDropList<T> extends JList<T> {
 	}
 
 	private class ListDropHandler extends TransferHandler {
-		private DragDropList list;
-
-		ListDropHandler(DragDropList list) {
-			this.list = list;
-		}
 
 		public boolean canImport(TransferHandler.TransferSupport support) {
 			if (!support.isDataFlavorSupported(DataFlavor.stringFlavor)) {
@@ -95,10 +74,10 @@ public class DragDropList<T> extends JList<T> {
 			JList.DropLocation dl = (JList.DropLocation) support.getDropLocation();
 			int dropTargetIndex = dl.getIndex();
 
-			T t = model.remove(index);
+			Layer layer = Layer.layers.remove(index);
 
 			if (index == 0 && (dropTargetIndex == 0 || dropTargetIndex == 1)) {
-				model.add(index, t);
+				Layer.layers.add(index, layer);
 				return false;
 			}
 
@@ -106,7 +85,10 @@ public class DragDropList<T> extends JList<T> {
 				dropTargetIndex--;
 			}
 
-			model.add(dropTargetIndex, t);
+			Layer.layers.add(dropTargetIndex, layer);
+
+			setModel(Layer.layers);
+
 			setSelectedIndex(dropTargetIndex);
 			return true;
 		}

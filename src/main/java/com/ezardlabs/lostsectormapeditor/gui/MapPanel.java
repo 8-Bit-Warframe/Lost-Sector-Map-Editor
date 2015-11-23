@@ -1,5 +1,6 @@
 package com.ezardlabs.lostsectormapeditor.gui;
 
+import com.ezardlabs.lostsectormapeditor.map.Layer;
 import com.ezardlabs.lostsectormapeditor.map.Map;
 
 import java.awt.Color;
@@ -13,6 +14,8 @@ import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 
 import javax.swing.JPanel;
+import javax.swing.event.ListDataEvent;
+import javax.swing.event.ListDataListener;
 
 public class MapPanel extends JPanel {
 	private Map map;
@@ -76,6 +79,22 @@ public class MapPanel extends JPanel {
 			public void mouseWheelMoved(MouseWheelEvent e) {
 				zoom -= e.getPreciseWheelRotation() * 0.25;
 				if (zoom == 0) zoom = 0.25;
+				repaint();
+			}
+		});
+		Layer.layers.addListDataListener(new ListDataListener() {
+			@Override
+			public void intervalAdded(ListDataEvent e) {
+				repaint();
+			}
+
+			@Override
+			public void intervalRemoved(ListDataEvent e) {
+				repaint();
+			}
+
+			@Override
+			public void contentsChanged(ListDataEvent e) {
 				repaint();
 			}
 		});

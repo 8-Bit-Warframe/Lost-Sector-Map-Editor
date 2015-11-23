@@ -1,5 +1,7 @@
 package com.ezardlabs.lostsectormapeditor.gui;
 
+import com.ezardlabs.lostsectormapeditor.map.Layer;
+
 import java.awt.BorderLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -12,7 +14,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 public class LayerPanel extends JPanel {
-	private DragDropList<String> dragDropList;
+	private DragDropList dragDropList;
 
 	LayerPanel() {
 		setLayout(new BorderLayout());
@@ -21,7 +23,7 @@ public class LayerPanel extends JPanel {
 		title.setFont(new Font(title.getName(), Font.BOLD, 20));
 		add(title, BorderLayout.PAGE_START);
 
-		add(dragDropList = new DragDropList<String>(), BorderLayout.CENTER);
+		add(dragDropList = new DragDropList(), BorderLayout.CENTER);
 
 		JPanel buttons = new JPanel();
 		buttons.setLayout(new BoxLayout(buttons, BoxLayout.X_AXIS));
@@ -30,14 +32,14 @@ public class LayerPanel extends JPanel {
 		addLayer.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				dragDropList.addDatum(JOptionPane.showInputDialog("Layer name"));
+				Layer.layers.addElement(new Layer(JOptionPane.showInputDialog("Layer name"), 0, 0));
 			}
 		});
 		JButton deleteLayer = new JButton("Delete layer");
 		deleteLayer.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				dragDropList.removeSelected();
+				Layer.layers.remove(dragDropList.getSelectedIndex());
 			}
 		});
 		buttons.add(addLayer, BorderLayout.LINE_START);

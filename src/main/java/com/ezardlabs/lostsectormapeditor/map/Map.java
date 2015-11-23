@@ -6,14 +6,13 @@ import java.awt.Point;
 
 public class Map {
 	private static final int TILE_SIZE = 16;
-	private Layer[] layers;
 	private int width;
 	private int height;
 
 	public Map(int width, int height) {
 		this.width = width;
 		this.height = height;
-		layers = new Layer[]{new Layer(0, width, height)};
+		Layer.layers.addElement(new Layer("Main", width, height));
 	}
 
 	public void draw(Graphics2D g, Point camera, double zoom) {
@@ -30,8 +29,8 @@ public class Map {
 		for (int i = 0; i <= height; i++) {
 			g.drawLine(0, i * TILE_SIZE, height * TILE_SIZE, i * TILE_SIZE);
 		}
-		for (Layer l : layers) {
-			l.draw(g, width, height);
+		for (int i = 0; i < Layer.layers.size(); i++) {
+			Layer.layers.get(i).draw(g, camera, zoom);
 		}
 	}
 }

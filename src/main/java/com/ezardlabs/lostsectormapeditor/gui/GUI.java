@@ -2,6 +2,7 @@ package com.ezardlabs.lostsectormapeditor.gui;
 
 import com.ezardlabs.lostsectormapeditor.Main;
 
+import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
@@ -13,6 +14,8 @@ import java.io.IOException;
 import java.util.prefs.Preferences;
 
 import javax.imageio.ImageIO;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFileChooser;
@@ -27,6 +30,7 @@ import javax.swing.SpringLayout;
 import javax.swing.UIManager;
 import javax.swing.WindowConstants;
 import javax.swing.filechooser.FileFilter;
+import javax.swing.filechooser.FileView;
 
 public class GUI extends JFrame {
 	static {
@@ -86,6 +90,7 @@ public class GUI extends JFrame {
 		JTabbedPane tabs = new JTabbedPane();
 
 		tabs.add("Create new project", createNewProjectPanel());
+		tabs.add("Open project", createOpenProjectPanel());
 
 		JDialog dialog = new JDialog(this, "Create new project");
 		dialog.setContentPane(tabs);
@@ -190,5 +195,71 @@ public class GUI extends JFrame {
 
 		container.add(panel);
 		return container;
+	}
+
+	private JPanel createOpenProjectPanel() {
+		JPanel panel = new JPanel(new BorderLayout());
+		final JFileChooser fileChooser = new JFileChooser();
+		final FileFilter fileFilter = new FileFilter() {
+			@Override
+			public boolean accept(File f) {
+				return f.isDirectory() && new File(f.getAbsolutePath() + File.separator + ".demp").exists();
+			}
+
+			@Override
+			public String getDescription() {
+				return "Dethsquare Engine Map Project";
+			}
+		};
+		fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+		fileChooser.setFileView(new FileView() {
+			@Override
+			public String getName(File f) {
+				return super.getName(f);
+			}
+
+			@Override
+			public String getDescription(File f) {
+				return super.getDescription(f);
+			}
+
+			@Override
+			public String getTypeDescription(File f) {
+				if (fileFilter.accept(f)) {
+					return "Dethsquare Engine Map Project";
+				} else {
+					return super.getTypeDescription(f);
+				}
+			}
+
+			@Override
+			public Icon getIcon(File f) {
+				if (fileFilter.accept(f)) {
+					return new ImageIcon(Main.class.getResource("/logo_icon.png"));
+				} else {
+					return super.getIcon(f);
+				}
+			}
+
+			@Override
+			public Boolean isTraversable(File f) {
+				return super.isTraversable(f);
+			}
+		});
+		fileChooser.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (e.getActionCommand().equals("ApproveSelection")) {
+					if (fileFilter.accept(fileChooser.getSelectedFile())) {
+						// load project
+					} else {
+						fileChooser.setCurrentDirectory(fileChooser.getSelectedFile());
+					}
+				}
+			}
+		});
+		panel.add(fileChooser, BorderLayout.CENTER);
+		panel.invalidate();
+		return panel;
 	}
 }

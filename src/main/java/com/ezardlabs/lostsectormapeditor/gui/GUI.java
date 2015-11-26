@@ -121,29 +121,7 @@ public class GUI extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				JFileChooser fileChooser = new JFileChooser(System.getProperty("user.home"));
-//				fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-				fileChooser.setFileFilter(new FileFilter() {
-					@Override
-					public boolean accept(File f) {
-						if (f.isDirectory()) {
-							File[] files = f.listFiles();
-							if (files != null) {
-								for (File file : files) {
-									if (file.getName().substring(file.getName().lastIndexOf('.')).equals("mep")) {
-										return true;
-									}
-								}
-								return false;
-							}
-						}
-						return false;
-					}
-
-					@Override
-					public String getDescription() {
-						return null;
-					}
-				});
+				fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 				if (fileChooser.showDialog(panel, null) == JFileChooser.APPROVE_OPTION) {
 					locationField.setText(fileChooser.getSelectedFile().getAbsolutePath());
 				}
@@ -161,7 +139,7 @@ public class GUI extends JFrame {
 					JOptionPane.showMessageDialog(panel, "Project location is required", "Error", JOptionPane.ERROR_MESSAGE);
 					return;
 				}
-				if (!new File(locationField.getText()).mkdirs()) {
+				if (!new File(locationField.getText() + File.separator + nameField.getText()).mkdirs()) {
 					JOptionPane.showMessageDialog(panel, "Invalid project location", "Error", JOptionPane.ERROR_MESSAGE);
 					return;
 				}

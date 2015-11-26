@@ -1,6 +1,7 @@
 package com.ezardlabs.lostsectormapeditor.gui;
 
 import com.ezardlabs.lostsectormapeditor.Main;
+import com.ezardlabs.lostsectormapeditor.project.ProjectManager;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
@@ -44,6 +45,7 @@ public class GUI extends JFrame {
 	private static final MapPanel mapPanel = new MapPanel();
 	private static final LayerPanel layerPanel = new LayerPanel();
 	private static final JTabbedPane tabPanel = new JTabbedPane();
+	private JDialog dialog;
 
 	public GUI() {
 		setJMenuBar(new MenuBar());
@@ -92,13 +94,18 @@ public class GUI extends JFrame {
 		tabs.add("Create new project", createNewProjectPanel());
 		tabs.add("Open project", createOpenProjectPanel());
 
-		JDialog dialog = new JDialog(this, "Create new project");
+		dialog = new JDialog(this, "Create new project");
 		dialog.setContentPane(tabs);
 		dialog.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
 		dialog.pack();
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		dialog.setLocation((screenSize.width - dialog.getWidth()) / 2, (screenSize.height - dialog.getHeight()) / 2);
 		dialog.setVisible(true);
+	}
+
+	public void closeNewOrOpenDialog() {
+		dialog.dispose();
+		setComponentsEnabled(getContentPane(), true);
 	}
 
 	private JPanel createNewProjectPanel() {
@@ -139,9 +146,15 @@ public class GUI extends JFrame {
 					JOptionPane.showMessageDialog(panel, "Project location is required", "Error", JOptionPane.ERROR_MESSAGE);
 					return;
 				}
-				if (!new File(locationField.getText() + File.separator + nameField.getText()).mkdirs()) {
+				File f = new File(locationField.getText() + File.separator + nameField.getText());
+				if (!f.mkdirs()) {
 					JOptionPane.showMessageDialog(panel, "Invalid project location", "Error", JOptionPane.ERROR_MESSAGE);
 					return;
+				}
+				try {
+					ProjectManager.createNewProject(f, nameField.getText());
+					closeNewOrOpenDialog();
+				} catch (IOException ignored) {
 				}
 			}
 		});
@@ -229,7 +242,8 @@ public class GUI extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				if (e.getActionCommand().equals("ApproveSelection")) {
 					if (fileFilter.accept(fileChooser.getSelectedFile())) {
-						// load project
+						ProjectManager.openExistingProject(fileChooser.getSelectedFile());
+						closeNewOrOpenDialog();
 					} else {
 						fileChooser.setCurrentDirectory(fileChooser.getSelectedFile());
 					}

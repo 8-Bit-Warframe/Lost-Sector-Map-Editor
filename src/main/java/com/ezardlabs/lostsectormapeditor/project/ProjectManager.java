@@ -1,5 +1,6 @@
 package com.ezardlabs.lostsectormapeditor.project;
 
+import com.ezardlabs.lostsectormapeditor.Main;
 import com.ezardlabs.lostsectormapeditor.gui.ProjectPanel;
 import com.google.gson.Gson;
 
@@ -9,6 +10,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.prefs.Preferences;
 
 public class ProjectManager {
 	private static Project currentProject;
@@ -21,6 +23,7 @@ public class ProjectManager {
 			BufferedWriter writer = new BufferedWriter(new FileWriter(projectFile));
 			writer.write(new Gson().toJson(currentProject));
 			writer.close();
+			Preferences.userNodeForPackage(Main.class).put("project_current", directory.getAbsolutePath());
 		}
 	}
 
@@ -29,6 +32,7 @@ public class ProjectManager {
 		try {
 			currentProject = new Gson().fromJson(new FileReader(projectFile), Project.class);
 			projectPanel.setProject(currentProject);
+			Preferences.userNodeForPackage(Main.class).put("project_current", directory.getAbsolutePath());
 		} catch (FileNotFoundException ignored) {
 		}
 	}

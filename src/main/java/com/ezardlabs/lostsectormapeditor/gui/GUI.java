@@ -51,7 +51,7 @@ public class GUI extends JFrame {
 		setJMenuBar(new MenuBar());
 
 		JSplitPane sideBar = new JSplitPane(JSplitPane.VERTICAL_SPLIT, tabPanel, layerPanel);
-		JSplitPane projectMap = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, new ProjectPanel(), new MapPanel());
+		JSplitPane projectMap = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, ProjectManager.getProjectPanel(), new MapPanel());
 		JSplitPane main = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, projectMap, sideBar);
 		add(main);
 
@@ -68,7 +68,7 @@ public class GUI extends JFrame {
 		projectMap.setOneTouchExpandable(true);
 		main.setOneTouchExpandable(true);
 		sideBar.setDividerLocation((int) (0.5 * getHeight()));
-		projectMap.setDividerLocation((int) (0.15 * getWidth()));
+		projectMap.setDividerLocation((int) (0.2 * getWidth()));
 		main.setDividerLocation((int) (0.8 * getWidth()));
 	}
 

@@ -12,8 +12,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.prefs.Preferences;
 
-;
-
 public class ProjectManager {
 	private static Project currentProject;
 	private static ProjectPanel projectPanel = new ProjectPanel();

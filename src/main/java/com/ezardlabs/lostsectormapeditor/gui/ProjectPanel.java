@@ -48,6 +48,7 @@ public class ProjectPanel extends JPanel {
 			public Component getTreeCellRendererComponent(JTree tree, Object value, boolean selected, boolean expanded, boolean leaf, int row, boolean hasFocus) {
 				File file = (File) ((DefaultMutableTreeNode) value).getUserObject();
 				JPanel panel = new JPanel();
+				panel.setOpaque(false);
 				panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
 
 				if (file.isDirectory()) {

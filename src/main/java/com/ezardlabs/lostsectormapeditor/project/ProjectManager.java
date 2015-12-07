@@ -10,6 +10,8 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.FileSystems;
+import java.nio.file.WatchService;
 import java.util.prefs.Preferences;
 
 public class ProjectManager {
@@ -23,17 +25,20 @@ public class ProjectManager {
 			BufferedWriter writer = new BufferedWriter(new FileWriter(projectFile));
 			writer.write(new Gson().toJson(currentProject));
 			writer.close();
-			Preferences.userNodeForPackage(Main.class).put("project_current", directory.getAbsolutePath());
+			openExistingProject(directory);
 		}
 	}
 
 	public static void openExistingProject(File directory) {
 		File projectFile = new File(directory + File.separator + ".demp");
-		try {
-			currentProject = new Gson().fromJson(new FileReader(projectFile), Project.class);
+		if (projectFile.exists()) {
+			try {
+				currentProject = new Gson().fromJson(new FileReader(projectFile), Project.class);
+			} catch (FileNotFoundException ignored) {
+			}
 			projectPanel.setProject(currentProject);
 			Preferences.userNodeForPackage(Main.class).put("project_current", directory.getAbsolutePath());
-		} catch (FileNotFoundException ignored) {
+
 		}
 	}
 

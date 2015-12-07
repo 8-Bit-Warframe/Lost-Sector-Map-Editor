@@ -60,7 +60,12 @@ public class GUI extends JFrame {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+		sideBar.setDividerLocation((int) (0.5 * getHeight()));
+		projectMap.setDividerLocation((int) (0.15 * getWidth()));
+		main.setDividerLocation((int) (0.8 * getWidth()));
+
 		pack();
 		setVisible(true);
 		setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -68,7 +73,7 @@ public class GUI extends JFrame {
 		projectMap.setOneTouchExpandable(true);
 		main.setOneTouchExpandable(true);
 		sideBar.setDividerLocation((int) (0.5 * getHeight()));
-		projectMap.setDividerLocation((int) (0.2 * getWidth()));
+		projectMap.setDividerLocation((int) (0.15 * getWidth()));
 		main.setDividerLocation((int) (0.8 * getWidth()));
 	}
 

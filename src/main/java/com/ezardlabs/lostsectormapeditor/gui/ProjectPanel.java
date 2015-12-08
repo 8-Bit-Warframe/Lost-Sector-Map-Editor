@@ -130,7 +130,9 @@ public class ProjectPanel extends Panel {
 									if (JOptionPane
 											.showOptionDialog(null, panel, "New map file", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, new Object[]{"OK", "Cancel"}, null) == 0) {
 										try {
-											new File(ProjectManager.getCurrentProject().getDirectory() + File.separator + textField.getText() + ".lsmap").createNewFile();
+											if (!new File(ProjectManager.getCurrentProject().getDirectory() + File.separator + textField.getText() + ".lsmap").createNewFile()) {
+												JOptionPane.showConfirmDialog(null, "Failed to create file", "Error", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE, null);
+											}
 										} catch (IOException ignored) {
 										}
 									}

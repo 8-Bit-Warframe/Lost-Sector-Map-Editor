@@ -1,7 +1,6 @@
 package com.ezardlabs.lostsectormapeditor.project;
 
 import com.ezardlabs.lostsectormapeditor.Main;
-import com.ezardlabs.lostsectormapeditor.gui.ProjectPanel;
 import com.ezardlabs.lostsectormapeditor.project.DirectoryWatcher.FileChangeListener;
 import com.google.gson.Gson;
 
@@ -14,7 +13,7 @@ import java.util.prefs.Preferences;
 
 public class ProjectManager {
 	private static Project currentProject;
-	private static ProjectPanel projectPanel = new ProjectPanel();
+	private static final ProjectPanel projectPanel = new ProjectPanel();
 
 	public static void createNewProject(File directory, String name) throws IOException {
 		File projectFile = new File(directory + File.separator + ".demp");

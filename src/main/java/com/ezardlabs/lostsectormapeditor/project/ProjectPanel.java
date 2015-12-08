@@ -1,8 +1,7 @@
-package com.ezardlabs.lostsectormapeditor.gui;
+package com.ezardlabs.lostsectormapeditor.project;
 
 import com.ezardlabs.lostsectormapeditor.Main;
-import com.ezardlabs.lostsectormapeditor.project.Project;
-import com.ezardlabs.lostsectormapeditor.project.ProjectManager;
+import com.ezardlabs.lostsectormapeditor.gui.Panel;
 
 import java.awt.Color;
 import java.awt.Component;
@@ -34,8 +33,8 @@ import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreeCellRenderer;
 import javax.swing.tree.TreePath;
 
-public class ProjectPanel extends Panel {
-	private JTree tree = new JTree();
+class ProjectPanel extends Panel {
+	private final JTree tree = new JTree();
 
 	public ProjectPanel() {
 		setLayout(new GridLayout(1, 1));

@@ -1,5 +1,6 @@
 package com.ezardlabs.lostsectormapeditor.gui;
 
+import com.ezardlabs.lostsectormapeditor.Main;
 import com.ezardlabs.lostsectormapeditor.project.Project;
 import com.ezardlabs.lostsectormapeditor.project.ProjectManager;
 
@@ -17,6 +18,7 @@ import java.io.IOException;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
@@ -78,10 +80,21 @@ public class ProjectPanel extends Panel {
 						panel.add(new JLabel(UIManager.getIcon("Tree.closedIcon")));
 					}
 				} else {
-					panel.add(new JLabel(UIManager.getIcon("Tree.leafIcon")));
+					String name = file.getName();
+					if (name.length() > 6 && name.substring(name.lastIndexOf('.')).equals(".lsmap")) {
+						//noinspection ConstantConditions
+						panel.add(new JLabel(new ImageIcon(Main.class.getClassLoader().getResource("map_icon.png"))));
+					} else {
+						panel.add(new JLabel(UIManager.getIcon("Tree.leafIcon")));
+					}
+					System.out.println(file.getName().substring(file.getName().lastIndexOf('.')));
 				}
 				panel.add(Box.createHorizontalStrut(5));
-				panel.add(new JLabel(file.getName()));
+				String text = file.getName();
+				if (text.contains(".")) {
+					text = text.substring(0, text.lastIndexOf('.'));
+				}
+				panel.add(new JLabel(text));
 				return panel;
 			}
 		});
@@ -97,8 +110,7 @@ public class ProjectPanel extends Panel {
 					int selRow = tree.getRowForLocation(e.getX(), e.getY());
 					TreePath selPath = tree.getPathForLocation(e.getX(), e.getY());
 					if (selRow != -1) {
-						File f;
-						if (e.getClickCount() == 1 && selPath != null && (f = new File(selPath.toString().replaceAll("\\[|\\]", ""))).isDirectory()) {
+						if (e.getClickCount() == 1 && selPath != null && new File(selPath.toString().replaceAll("\\[|\\]", "")).isDirectory()) {
 							JPopupMenu popup = new JPopupMenu();
 							JMenuItem newMapFile = new JMenuItem("Create new map file...");
 							newMapFile.addActionListener(new ActionListener() {

@@ -50,7 +50,9 @@ public class ProjectPanel extends Panel {
 				if (tree.hasFocus() && e.getKeyCode() == KeyEvent.VK_DELETE) {
 					if (JOptionPane.showOptionDialog(null, "Are you sure you want to delete " + tree.getLastSelectedPathComponent() + "?", "Delete item?", JOptionPane.YES_NO_OPTION,
 							JOptionPane.WARNING_MESSAGE, null, null, null) == 0) {
-						System.out.println(new File(tree.getLastSelectedPathComponent().toString()).delete());
+						if (!new File(tree.getLastSelectedPathComponent().toString()).delete()) {
+							JOptionPane.showConfirmDialog(null, "Could not delete file", "Error", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
+						}
 					}
 				}
 			}

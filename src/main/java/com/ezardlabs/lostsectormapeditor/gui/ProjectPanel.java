@@ -4,6 +4,7 @@ import com.ezardlabs.lostsectormapeditor.Main;
 import com.ezardlabs.lostsectormapeditor.project.Project;
 import com.ezardlabs.lostsectormapeditor.project.ProjectManager;
 
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -95,7 +96,11 @@ public class ProjectPanel extends Panel {
 				if (text.contains(".")) {
 					text = text.substring(0, text.lastIndexOf('.'));
 				}
-				panel.add(new JLabel(text));
+				JLabel label = new JLabel(text);
+				if (selected) {
+					label.setForeground(Color.WHITE);
+				}
+				panel.add(label);
 				return panel;
 			}
 		});

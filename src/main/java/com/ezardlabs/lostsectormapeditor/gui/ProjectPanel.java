@@ -31,7 +31,7 @@ import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreeCellRenderer;
 import javax.swing.tree.TreePath;
 
-public class ProjectPanel extends JPanel {
+public class ProjectPanel extends Panel {
 	private JTree tree = new JTree();
 
 	public ProjectPanel() {

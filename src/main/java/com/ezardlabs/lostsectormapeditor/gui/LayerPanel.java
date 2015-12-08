@@ -13,7 +13,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-public class LayerPanel extends JPanel {
+public class LayerPanel extends Panel {
 	private DragDropList dragDropList;
 
 	LayerPanel() {

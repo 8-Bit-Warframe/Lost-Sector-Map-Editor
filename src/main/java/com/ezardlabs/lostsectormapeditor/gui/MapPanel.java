@@ -13,11 +13,10 @@ import java.awt.event.MouseMotionListener;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 
-import javax.swing.JPanel;
 import javax.swing.event.ListDataEvent;
 import javax.swing.event.ListDataListener;
 
-public class MapPanel extends JPanel {
+public class MapPanel extends Panel {
 	private Map map;
 	private Point camera = new Point();
 	private double zoom = 1;

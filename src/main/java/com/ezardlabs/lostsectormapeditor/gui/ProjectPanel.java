@@ -7,6 +7,8 @@ import java.awt.Component;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.File;
@@ -36,8 +38,26 @@ public class ProjectPanel extends JPanel {
 		setLayout(new GridLayout(1, 1));
 		tree.setModel(new DefaultTreeModel(null));
 		add(tree);
-	}
+		tree.addKeyListener(new KeyListener() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+			}
 
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if (tree.hasFocus() && e.getKeyCode() == KeyEvent.VK_DELETE) {
+					if (JOptionPane.showOptionDialog(null, "Are you sure you want to delete " + tree.getLastSelectedPathComponent() + "?", "Delete item?", JOptionPane.YES_NO_OPTION,
+							JOptionPane.WARNING_MESSAGE, null, null, null) == 0) {
+						System.out.println(new File(tree.getLastSelectedPathComponent().toString()).delete());
+					}
+				}
+			}
+
+			@Override
+			public void keyReleased(KeyEvent e) {
+			}
+		});
+	}
 
 	public void setProject(Project project) {
 		DefaultMutableTreeNode root = new DefaultMutableTreeNode(project.getDirectory(), true);

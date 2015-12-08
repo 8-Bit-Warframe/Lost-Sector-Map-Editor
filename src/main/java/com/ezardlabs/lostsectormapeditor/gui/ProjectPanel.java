@@ -89,7 +89,6 @@ public class ProjectPanel extends Panel {
 					} else {
 						panel.add(new JLabel(UIManager.getIcon("Tree.leafIcon")));
 					}
-					System.out.println(file.getName().substring(file.getName().lastIndexOf('.')));
 				}
 				panel.add(Box.createHorizontalStrut(5));
 				String text = file.getName();

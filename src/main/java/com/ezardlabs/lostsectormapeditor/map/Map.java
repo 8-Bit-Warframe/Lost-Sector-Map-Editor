@@ -7,7 +7,7 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Point;
 
-public class Map {
+class Map {
 	private static final int TILE_SIZE = 16;
 	private int width;
 	private int height;

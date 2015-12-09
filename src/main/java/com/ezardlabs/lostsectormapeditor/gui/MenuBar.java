@@ -1,6 +1,6 @@
 package com.ezardlabs.lostsectormapeditor.gui;
 
-import com.ezardlabs.lostsectormapeditor.map.Map;
+import com.ezardlabs.lostsectormapeditor.map.MapManager;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -66,7 +66,7 @@ class MenuBar extends JMenuBar {
 					}
 				});
 				if (JOptionPane.showConfirmDialog(null, p, "Enter map size:", JOptionPane.OK_CANCEL_OPTION) == 0) {
-					GUI.getMapPanel().setMap(new Map(Integer.parseInt(if1.getText()), Integer.parseInt(if2.getText())));
+					MapManager.createNewMap(Integer.parseInt(if1.getText()), Integer.parseInt(if2.getText()));
 				}
 			}
 		});

@@ -1,7 +1,7 @@
 package com.ezardlabs.lostsectormapeditor.gui;
 
 import com.ezardlabs.lostsectormapeditor.Main;
-import com.ezardlabs.lostsectormapeditor.map.MapPanel;
+import com.ezardlabs.lostsectormapeditor.map.MapManager;
 import com.ezardlabs.lostsectormapeditor.map.layers.LayerManager;
 import com.ezardlabs.lostsectormapeditor.project.ProjectManager;
 
@@ -44,7 +44,6 @@ public class GUI extends JFrame {
 		}
 	}
 
-	private static final MapPanel mapPanel = new MapPanel();
 	private static final JTabbedPane tabPanel = new JTabbedPane();
 	private JDialog dialog;
 
@@ -52,7 +51,7 @@ public class GUI extends JFrame {
 		setJMenuBar(new MenuBar());
 
 		JSplitPane sideBar = new JSplitPane(JSplitPane.VERTICAL_SPLIT, tabPanel, LayerManager.getLayerPanel());
-		JSplitPane projectMap = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, ProjectManager.getProjectPanel(), new MapPanel());
+		JSplitPane projectMap = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, ProjectManager.getProjectPanel(), MapManager.getMapPanel());
 		JSplitPane main = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, projectMap, sideBar);
 		add(main);
 
@@ -76,10 +75,6 @@ public class GUI extends JFrame {
 		sideBar.setDividerLocation((int) (0.5 * getHeight()));
 		projectMap.setDividerLocation((int) (0.15 * getWidth()));
 		main.setDividerLocation((int) (0.8 * getWidth()));
-	}
-
-	public static MapPanel getMapPanel() {
-		return mapPanel;
 	}
 
 	private void setComponentsEnabled(Container container, boolean enabled) {

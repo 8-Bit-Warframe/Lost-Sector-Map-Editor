@@ -16,8 +16,7 @@ import java.awt.event.MouseWheelListener;
 import javax.swing.event.ListDataEvent;
 import javax.swing.event.ListDataListener;
 
-public class MapPanel extends Panel {
-	private Map map;
+class MapPanel extends Panel {
 	private Point camera = new Point();
 	private double zoom = 1;
 
@@ -100,17 +99,12 @@ public class MapPanel extends Panel {
 		setDoubleBuffered(true);
 	}
 
-	public void setMap(Map map) {
-		this.map = map;
-		repaint();
-	}
-
 	@Override
 	public void paint(Graphics g) {
 		g.setColor(Color.BLACK);
 		g.fillRect(0, 0, getWidth(), getHeight());
-		if (map != null) {
-			map.draw((Graphics2D) g, camera, zoom);
+		if (MapManager.getMap() != null) {
+			MapManager.getMap().draw((Graphics2D) g, camera, zoom);
 		}
 	}
 }

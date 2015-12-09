@@ -15,7 +15,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.BoxLayout;
-import javax.swing.DefaultListModel;
 import javax.swing.DropMode;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -24,8 +23,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.TransferHandler;
 
-public class LayerPanel extends Panel {
-	private DragDropList dragDropList;
+class LayerPanel extends Panel {
+	private final DragDropList dragDropList = new DragDropList();
 
 	LayerPanel() {
 		setLayout(new BorderLayout());
@@ -34,7 +33,7 @@ public class LayerPanel extends Panel {
 		title.setFont(new Font(title.getName(), Font.BOLD, 20));
 		add(title, BorderLayout.PAGE_START);
 
-		add(dragDropList = new DragDropList(), BorderLayout.CENTER);
+		add(dragDropList, BorderLayout.CENTER);
 
 		JPanel buttons = new JPanel();
 		buttons.setLayout(new BoxLayout(buttons, BoxLayout.X_AXIS));
@@ -43,14 +42,14 @@ public class LayerPanel extends Panel {
 		addLayer.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Layer.layers.addElement(new Layer(JOptionPane.showInputDialog("Layer name"), 0, 0));
+				LayerManager.addLayer(new Layer(JOptionPane.showInputDialog("Layer name"), 0, 0));
 			}
 		});
 		JButton deleteLayer = new JButton("Delete layer");
 		deleteLayer.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Layer.layers.remove(dragDropList.getSelectedIndex());
+				LayerManager.removeLayer(dragDropList.getSelectedIndex());
 			}
 		});
 		buttons.add(addLayer, BorderLayout.LINE_START);
@@ -62,8 +61,7 @@ public class LayerPanel extends Panel {
 	public static class DragDropList extends JList<Layer> {
 
 		public DragDropList() {
-			super(new DefaultListModel<Layer>());
-			setModel(Layer.layers);
+			super(LayerManager.getLayers());
 			setDragEnabled(true);
 			setDropMode(DropMode.INSERT);
 
@@ -74,15 +72,13 @@ public class LayerPanel extends Panel {
 		}
 
 		private class DragListener {
-			private DragDropList list;
-			private DragSource ds = new DragSource();
 
-			public DragListener(DragDropList list) {
-				this.list = list;
+			DragListener(final DragDropList list) {
+				final DragSource ds = new DragSource();
 				ds.createDefaultDragGestureRecognizer(list, DnDConstants.ACTION_MOVE, new DragGestureListener() {
 					@Override
 					public void dragGestureRecognized(DragGestureEvent dge) {
-						StringSelection transferable = new StringSelection(Integer.toString(DragListener.this.list.getSelectedIndex()));
+						StringSelection transferable = new StringSelection(Integer.toString(list.getSelectedIndex()));
 						ds.startDrag(dge, DragSource.DefaultCopyDrop, transferable, null);
 					}
 				});
@@ -117,10 +113,10 @@ public class LayerPanel extends Panel {
 				JList.DropLocation dl = (JList.DropLocation) support.getDropLocation();
 				int dropTargetIndex = dl.getIndex();
 
-				Layer layer = Layer.layers.remove(index);
+				Layer layer = LayerManager.removeLayer(index);
 
 				if (index == 0 && (dropTargetIndex == 0 || dropTargetIndex == 1)) {
-					Layer.layers.add(index, layer);
+					LayerManager.addLayer(index, layer);
 					return false;
 				}
 
@@ -128,9 +124,9 @@ public class LayerPanel extends Panel {
 					dropTargetIndex--;
 				}
 
-				Layer.layers.add(dropTargetIndex, layer);
+				LayerManager.addLayer(dropTargetIndex, layer);
 
-				setModel(Layer.layers);
+				setModel(LayerManager.getLayers());
 
 				setSelectedIndex(dropTargetIndex);
 				return true;

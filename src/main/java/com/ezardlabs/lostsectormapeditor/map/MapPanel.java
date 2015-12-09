@@ -1,7 +1,7 @@
 package com.ezardlabs.lostsectormapeditor.map;
 
 import com.ezardlabs.lostsectormapeditor.gui.Panel;
-import com.ezardlabs.lostsectormapeditor.map.layers.Layer;
+import com.ezardlabs.lostsectormapeditor.map.layers.LayerManager;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -25,7 +25,7 @@ public class MapPanel extends Panel {
 	private Point dragStart;
 	private Point cameraStart;
 
-	MapPanel() {
+	public MapPanel() {
 		addMouseListener(new MouseListener() {
 
 			@Override
@@ -81,7 +81,7 @@ public class MapPanel extends Panel {
 				repaint();
 			}
 		});
-		Layer.layers.addListDataListener(new ListDataListener() {
+		LayerManager.getLayers().addListDataListener(new ListDataListener() {
 			@Override
 			public void intervalAdded(ListDataEvent e) {
 				repaint();

@@ -1,6 +1,7 @@
 package com.ezardlabs.lostsectormapeditor.map;
 
 import com.ezardlabs.lostsectormapeditor.map.layers.Layer;
+import com.ezardlabs.lostsectormapeditor.map.layers.LayerManager;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
@@ -14,7 +15,7 @@ public class Map {
 	public Map(int width, int height) {
 		this.width = width;
 		this.height = height;
-		Layer.layers.addElement(new Layer("Main", width, height));
+		LayerManager.getLayers().addElement(new Layer("Main", width, height));
 	}
 
 	public void draw(Graphics2D g, Point camera, double zoom) {
@@ -31,8 +32,8 @@ public class Map {
 		for (int i = 0; i <= height; i++) {
 			g.drawLine(0, i * TILE_SIZE, height * TILE_SIZE, i * TILE_SIZE);
 		}
-		for (int i = 0; i < Layer.layers.size(); i++) {
-			Layer.layers.get(i).draw(g, camera, zoom);
+		for (int i = 0; i < LayerManager.getLayers().size(); i++) {
+			LayerManager.getLayers().get(i).draw(g, camera, zoom);
 		}
 	}
 }

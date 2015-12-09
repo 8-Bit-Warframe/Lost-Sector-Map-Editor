@@ -2,7 +2,7 @@ package com.ezardlabs.lostsectormapeditor.gui;
 
 import com.ezardlabs.lostsectormapeditor.Main;
 import com.ezardlabs.lostsectormapeditor.map.MapPanel;
-import com.ezardlabs.lostsectormapeditor.map.layers.LayerPanel;
+import com.ezardlabs.lostsectormapeditor.map.layers.LayerManager;
 import com.ezardlabs.lostsectormapeditor.project.ProjectManager;
 
 import java.awt.BorderLayout;
@@ -45,14 +45,13 @@ public class GUI extends JFrame {
 	}
 
 	private static final MapPanel mapPanel = new MapPanel();
-	private static final LayerPanel layerPanel = new LayerPanel();
 	private static final JTabbedPane tabPanel = new JTabbedPane();
 	private JDialog dialog;
 
 	public GUI() {
 		setJMenuBar(new MenuBar());
 
-		JSplitPane sideBar = new JSplitPane(JSplitPane.VERTICAL_SPLIT, tabPanel, layerPanel);
+		JSplitPane sideBar = new JSplitPane(JSplitPane.VERTICAL_SPLIT, tabPanel, LayerManager.getLayerPanel());
 		JSplitPane projectMap = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, ProjectManager.getProjectPanel(), new MapPanel());
 		JSplitPane main = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, projectMap, sideBar);
 		add(main);

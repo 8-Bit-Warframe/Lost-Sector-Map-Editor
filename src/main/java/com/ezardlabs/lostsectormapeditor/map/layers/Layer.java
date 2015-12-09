@@ -1,4 +1,4 @@
-package com.ezardlabs.lostsectormapeditor.map;
+package com.ezardlabs.lostsectormapeditor.map.layers;
 
 import java.awt.Graphics2D;
 import java.awt.Point;

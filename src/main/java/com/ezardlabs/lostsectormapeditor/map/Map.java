@@ -1,5 +1,7 @@
 package com.ezardlabs.lostsectormapeditor.map;
 
+import com.ezardlabs.lostsectormapeditor.map.layers.Layer;
+
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Point;

@@ -1,6 +1,8 @@
 package com.ezardlabs.lostsectormapeditor.gui;
 
 import com.ezardlabs.lostsectormapeditor.Main;
+import com.ezardlabs.lostsectormapeditor.map.MapPanel;
+import com.ezardlabs.lostsectormapeditor.map.layers.LayerPanel;
 import com.ezardlabs.lostsectormapeditor.project.ProjectManager;
 
 import java.awt.BorderLayout;

@@ -17,6 +17,7 @@ public class Main {
 		String temp;
 		File f;
 		if ((temp = prefs.get("project_current", null)) != null && (f = new File(temp)).exists() && f.isDirectory()) {
+			GUI.getInstance();
 			ProjectManager.openExistingProject(new File(temp));
 		} else {
 			GUI.getInstance().showNewOrOpenDialog();

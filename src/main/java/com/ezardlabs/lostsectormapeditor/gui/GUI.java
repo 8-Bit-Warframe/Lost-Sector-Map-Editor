@@ -44,6 +44,7 @@ public class GUI extends JFrame {
 		}
 	}
 
+	private static final GUI gui = new GUI();
 	private static final JTabbedPane tabPanel = new JTabbedPane();
 	private JDialog dialog;
 
@@ -75,6 +76,10 @@ public class GUI extends JFrame {
 		sideBar.setDividerLocation((int) (0.5 * getHeight()));
 		projectMap.setDividerLocation((int) (0.15 * getWidth()));
 		main.setDividerLocation((int) (0.8 * getWidth()));
+	}
+
+	public static GUI getInstance() {
+		return gui;
 	}
 
 	private void setComponentsEnabled(Container container, boolean enabled) {

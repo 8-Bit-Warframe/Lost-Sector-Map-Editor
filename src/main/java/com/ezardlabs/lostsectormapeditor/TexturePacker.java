@@ -20,7 +20,7 @@ import javax.imageio.ImageIO;
 public class TexturePacker {
 
 	public static void pack(File dir) {
-		ArrayList<File> imageFiles = new ArrayList<File>();
+		ArrayList<File> imageFiles = new ArrayList<>();
 		if (dir.isDirectory()) {
 			File[] files = dir.listFiles(new ImageFilenameFilter());
 
@@ -29,7 +29,7 @@ public class TexturePacker {
 			System.out.println("Error: Could not find directory '" + dir.getPath() + "'");
 			return;
 		}
-		TreeSet<ImageName> imageNameSet = new TreeSet<ImageName>(new ImageNameComparator());
+		TreeSet<ImageName> imageNameSet = new TreeSet<>(new ImageNameComparator());
 		for (File f : imageFiles) {
 			try {
 				BufferedImage image = ImageIO.read(f);
@@ -151,7 +151,7 @@ public class TexturePacker {
 			graphics = image.createGraphics();
 
 			root = new Node(0, 0, width, height);
-			rectangleMap = new TreeMap<String, Rectangle>();
+			rectangleMap = new TreeMap<>();
 		}
 
 		public boolean addImage(BufferedImage image, String name) {

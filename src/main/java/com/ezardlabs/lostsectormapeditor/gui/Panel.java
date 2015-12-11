@@ -7,7 +7,7 @@ import javax.swing.JPanel;
 
 public abstract class Panel extends JPanel {
 
-	public Panel() {
+	protected Panel() {
 		super();
 		addMouseListener(new MouseListener() {
 			@Override

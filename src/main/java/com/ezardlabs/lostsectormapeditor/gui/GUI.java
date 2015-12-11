@@ -52,7 +52,7 @@ public class GUI extends JFrame {
 	private static final JTabbedPane tabPanel = new JTabbedPane();
 	private JDialog dialog;
 
-	public GUI() {
+	private GUI() {
 		setJMenuBar(new MenuBar());
 
 		JSplitPane sideBar = new JSplitPane(JSplitPane.VERTICAL_SPLIT, tabPanel, LayerManager.getLayerPanel());
@@ -114,7 +114,7 @@ public class GUI extends JFrame {
 		dialog.setVisible(true);
 	}
 
-	public void closeDialog() {
+	private void closeDialog() {
 		dialog.dispose();
 		setComponentsEnabled(getContentPane(), true);
 	}

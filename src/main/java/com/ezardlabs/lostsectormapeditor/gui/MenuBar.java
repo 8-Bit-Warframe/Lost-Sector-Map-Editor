@@ -28,8 +28,16 @@ class MenuBar extends JMenuBar {
 		JMenu file = new JMenu("File");
 		file.setMnemonic('f');
 
-		JMenuItem newMap = new JMenuItem("New");
-		newMap.setAccelerator(KeyStroke.getKeyStroke('N', InputEvent.CTRL_DOWN_MASK));
+		JMenu newMenu = new JMenu("New");
+		JMenuItem newProject = new JMenuItem("Project...");
+		newProject.setAccelerator(KeyStroke.getKeyStroke('N', InputEvent.CTRL_DOWN_MASK));
+		newProject.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				GUI.getInstance().showNewProjectDialog();
+			}
+		});
+		JMenuItem newMap = new JMenuItem("Map");
 		newMap.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -70,11 +78,16 @@ class MenuBar extends JMenuBar {
 				}
 			}
 		});
+		newMenu.add(newProject);
+		newMenu.addSeparator();
+		newMenu.add(newMap);
+
 		JMenuItem openMap = new JMenuItem("Open...");
 		openMap.setAccelerator(KeyStroke.getKeyStroke('O', InputEvent.CTRL_DOWN_MASK));
 		openMap.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				GUI.getInstance().showOpenProjectDialog();
 			}
 		});
 		JMenu openRecentMap = new JMenu("Open recent");
@@ -93,7 +106,7 @@ class MenuBar extends JMenuBar {
 			}
 		});
 
-		file.add(newMap);
+		file.add(newMenu);
 		file.add(openMap);
 		file.add(openRecentMap);
 		file.addSeparator();

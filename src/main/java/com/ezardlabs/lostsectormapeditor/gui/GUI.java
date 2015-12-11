@@ -115,6 +115,28 @@ public class GUI extends JFrame {
 		setComponentsEnabled(getContentPane(), true);
 	}
 
+	public void showNewProjectDialog() {
+		setComponentsEnabled(getContentPane(), false);
+		dialog = new JDialog(this, "Create new project");
+		dialog.setContentPane(createNewProjectPanel());
+		dialog.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
+		dialog.pack();
+		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		dialog.setLocation((screenSize.width - dialog.getWidth()) / 2, (screenSize.height - dialog.getHeight()) / 2);
+		dialog.setVisible(true);
+	}
+
+	public void showOpenProjectDialog() {
+		setComponentsEnabled(getContentPane(), false);
+		dialog = new JDialog(this, "Open project");
+		dialog.setContentPane(createOpenProjectPanel());
+		dialog.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
+		dialog.pack();
+		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		dialog.setLocation((screenSize.width - dialog.getWidth()) / 2, (screenSize.height - dialog.getHeight()) / 2);
+		dialog.setVisible(true);
+	}
+
 	private JPanel createNewProjectPanel() {
 		JPanel container = new JPanel();
 		SpringLayout layout;

@@ -44,7 +44,7 @@ public class GUI extends JFrame {
 		}
 	}
 
-	private static final GUI gui = new GUI();
+	private static GUI gui;
 	private static final JTabbedPane tabPanel = new JTabbedPane();
 	private JDialog dialog;
 
@@ -79,6 +79,7 @@ public class GUI extends JFrame {
 	}
 
 	public static GUI getInstance() {
+		if (gui == null) gui = new GUI();
 		return gui;
 	}
 
@@ -109,7 +110,7 @@ public class GUI extends JFrame {
 		dialog.setVisible(true);
 	}
 
-	public void closeNewOrOpenDialog() {
+	public void closeDialog() {
 		dialog.dispose();
 		setComponentsEnabled(getContentPane(), true);
 	}
@@ -159,7 +160,7 @@ public class GUI extends JFrame {
 				}
 				try {
 					ProjectManager.createNewProject(f, nameField.getText());
-					closeNewOrOpenDialog();
+					closeDialog();
 				} catch (IOException ignored) {
 				}
 			}
@@ -249,7 +250,7 @@ public class GUI extends JFrame {
 				if (e.getActionCommand().equals("ApproveSelection")) {
 					if (fileFilter.accept(fileChooser.getSelectedFile())) {
 						ProjectManager.openExistingProject(fileChooser.getSelectedFile());
-						closeNewOrOpenDialog();
+						closeDialog();
 					} else {
 						fileChooser.setCurrentDirectory(fileChooser.getSelectedFile());
 					}

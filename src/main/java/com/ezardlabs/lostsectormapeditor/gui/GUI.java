@@ -9,6 +9,8 @@ import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -32,6 +34,8 @@ import javax.swing.JTextField;
 import javax.swing.SpringLayout;
 import javax.swing.UIManager;
 import javax.swing.WindowConstants;
+import javax.swing.event.AncestorEvent;
+import javax.swing.event.AncestorListener;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileView;
 
@@ -280,5 +284,43 @@ public class GUI extends JFrame {
 		panel.add(fileChooser, BorderLayout.CENTER);
 		panel.invalidate();
 		return panel;
+	}
+
+	public void showNewMapDialog() {
+		JPanel p = new JPanel();
+		p.setLayout(new GridBagLayout());
+		GridBagConstraints c = new GridBagConstraints();
+		c.gridx = 0;
+		c.gridy = 0;
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.weightx = 0.2;
+		p.add(new JLabel("Width:"), c);
+		c.gridy = 1;
+		p.add(new JLabel("Height:"), c);
+		c.weightx = 0.8;
+		c.gridx = 1;
+		c.gridy = 0;
+		final IntegerField if1 = new IntegerField();
+		p.add(if1, c);
+		c.gridy = 1;
+		IntegerField if2 = new IntegerField();
+		p.add(if2, c);
+		if1.addAncestorListener(new AncestorListener() {
+			@Override
+			public void ancestorAdded(AncestorEvent event) {
+				if1.requestFocusInWindow();
+			}
+
+			@Override
+			public void ancestorRemoved(AncestorEvent event) {
+			}
+
+			@Override
+			public void ancestorMoved(AncestorEvent event) {
+			}
+		});
+		if (JOptionPane.showConfirmDialog(null, p, "Enter map size:", JOptionPane.OK_CANCEL_OPTION) == 0) {
+			MapManager.createNewMap(Integer.parseInt(if1.getText()), Integer.parseInt(if2.getText()));
+		}
 	}
 }

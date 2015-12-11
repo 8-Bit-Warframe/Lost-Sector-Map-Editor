@@ -235,15 +235,6 @@ public class GUI extends JFrame {
 		};
 		fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 		fileChooser.setFileView(new FileView() {
-			@Override
-			public String getName(File f) {
-				return super.getName(f);
-			}
-
-			@Override
-			public String getDescription(File f) {
-				return super.getDescription(f);
-			}
 
 			@Override
 			public String getTypeDescription(File f) {
@@ -261,11 +252,6 @@ public class GUI extends JFrame {
 				} else {
 					return super.getIcon(f);
 				}
-			}
-
-			@Override
-			public Boolean isTraversable(File f) {
-				return super.isTraversable(f);
 			}
 		});
 		fileChooser.addActionListener(new ActionListener() {

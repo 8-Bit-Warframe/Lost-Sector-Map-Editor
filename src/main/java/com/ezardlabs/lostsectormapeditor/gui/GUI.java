@@ -306,6 +306,7 @@ public class GUI extends JFrame {
 			}
 		});
 		if (JOptionPane.showConfirmDialog(null, p, "Enter map size:", JOptionPane.OK_CANCEL_OPTION) == 0) {
+			ProjectManager.refresh();
 			MapManager.createNewMap(Integer.parseInt(if1.getText()), Integer.parseInt(if2.getText()));
 		}
 	}

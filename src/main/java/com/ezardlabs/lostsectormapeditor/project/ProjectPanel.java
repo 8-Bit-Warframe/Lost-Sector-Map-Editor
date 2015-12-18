@@ -50,7 +50,9 @@ class ProjectPanel extends Panel {
 				if (tree.hasFocus() && e.getKeyCode() == KeyEvent.VK_DELETE) {
 					if (JOptionPane.showOptionDialog(null, "Are you sure you want to delete " + tree.getLastSelectedPathComponent() + "?", "Delete item?", JOptionPane.YES_NO_OPTION,
 							JOptionPane.WARNING_MESSAGE, null, null, null) == 0) {
-						if (!new File(tree.getLastSelectedPathComponent().toString()).delete()) {
+						if (new File(tree.getLastSelectedPathComponent().toString()).delete()) {
+							ProjectManager.refresh();
+						} else {
 							JOptionPane.showConfirmDialog(null, "Could not delete file", "Error", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
 						}
 					}
@@ -135,7 +137,9 @@ class ProjectPanel extends Panel {
 									if (JOptionPane
 											.showOptionDialog(null, panel, "New map file", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, new Object[]{"OK", "Cancel"}, null) == 0) {
 										try {
-											if (!new File(ProjectManager.getCurrentProject().getDirectory() + File.separator + textField.getText() + ".lsmap").createNewFile()) {
+											if (new File(ProjectManager.getCurrentProject().getDirectory() + File.separator + textField.getText() + ".lsmap").createNewFile()) {
+												ProjectManager.refresh();
+											} else {
 												JOptionPane.showConfirmDialog(null, "Failed to create file", "Error", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE, null);
 											}
 										} catch (IOException ignored) {

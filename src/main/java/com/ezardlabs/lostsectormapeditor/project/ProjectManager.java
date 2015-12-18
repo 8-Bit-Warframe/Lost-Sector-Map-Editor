@@ -1,7 +1,6 @@
 package com.ezardlabs.lostsectormapeditor.project;
 
 import com.ezardlabs.lostsectormapeditor.PreferenceManager;
-import com.ezardlabs.lostsectormapeditor.project.DirectoryWatcher.FileChangeListener;
 import com.google.gson.Gson;
 
 import java.io.BufferedWriter;
@@ -32,22 +31,22 @@ public class ProjectManager {
 				currentProject = new Gson().fromJson(new FileReader(projectFile), Project.class);
 				projectPanel.setProject(currentProject);
 				PreferenceManager.putString(PreferenceManager.PROJECT_CURRENT, directory.getAbsolutePath());
-				new DirectoryWatcher(directory, new FileChangeListener() {
-					@Override
-					public void onFileCreated(File file) {
-						projectPanel.setProject(currentProject);
-
-					}
-
-					@Override
-					public void onFileModified(File file) {
-					}
-
-					@Override
-					public void onFileDeleted(File file) {
-						projectPanel.setProject(currentProject);
-					}
-				}).processEvents();
+//				new DirectoryWatcher(directory, new FileChangeListener() {
+//					@Override
+//					public void onFileCreated(File file) {
+//						projectPanel.setProject(currentProject);
+//
+//					}
+//
+//					@Override
+//					public void onFileModified(File file) {
+//					}
+//
+//					@Override
+//					public void onFileDeleted(File file) {
+//						projectPanel.setProject(currentProject);
+//					}
+//				}).processEvents();
 			} catch (IOException ignored) {
 			}
 
@@ -60,5 +59,9 @@ public class ProjectManager {
 
 	public static ProjectPanel getProjectPanel() {
 		return projectPanel;
+	}
+
+	public static void refresh() {
+		projectPanel.setProject(currentProject);
 	}
 }

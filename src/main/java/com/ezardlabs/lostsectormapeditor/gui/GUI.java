@@ -153,12 +153,12 @@ public class GUI extends JFrame {
 		panel.add(locationLabel);
 		final JTextField locationField = new JTextField(PreferenceManager.getString(PreferenceManager.PROJECT_LAST_LOCATION, System.getProperty("user.home")));
 		panel.add(locationField);
-		JButton locationChooser = new JButton("...");
+		final JButton locationChooser = new JButton("...");
 		panel.add(locationChooser);
 		locationChooser.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				JFileChooser fileChooser = new JFileChooser(System.getProperty("user.home"));
+				JFileChooser fileChooser = new JFileChooser(locationField.getText());
 				fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 				if (fileChooser.showDialog(panel, null) == JFileChooser.APPROVE_OPTION) {
 					locationField.setText(fileChooser.getSelectedFile().getAbsolutePath());

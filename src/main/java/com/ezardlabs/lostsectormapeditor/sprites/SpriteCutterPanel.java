@@ -56,9 +56,7 @@ class SpriteCutterPanel extends Panel {
 			public void mouseDragged(MouseEvent e) {
 				cursor = e.getPoint();
 				IntegerPoint temp = getCoordinateOnOriginalImage(e.getPoint());
-				System.out.println(temp);
 				selected = new Rectangle(topLeft.getX(), topLeft.getY(), temp.getX() + 16 - topLeft.getX(), temp.getY() + 16 - topLeft.getY());
-				System.out.println(selected);
 				repaint();
 			}
 

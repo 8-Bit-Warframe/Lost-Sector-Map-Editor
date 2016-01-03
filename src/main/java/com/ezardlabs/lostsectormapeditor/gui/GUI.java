@@ -1,6 +1,7 @@
 package com.ezardlabs.lostsectormapeditor.gui;
 
 import com.ezardlabs.lostsectormapeditor.Main;
+import com.ezardlabs.lostsectormapeditor.PreferenceManager;
 import com.ezardlabs.lostsectormapeditor.map.MapManager;
 import com.ezardlabs.lostsectormapeditor.map.layers.LayerManager;
 import com.ezardlabs.lostsectormapeditor.project.ProjectManager;
@@ -16,7 +17,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
-import java.util.prefs.Preferences;
 
 import javax.imageio.ImageIO;
 import javax.swing.Icon;
@@ -151,14 +151,14 @@ public class GUI extends JFrame {
 
 		JLabel locationLabel = new JLabel("Project location:");
 		panel.add(locationLabel);
-		final JTextField locationField = new JTextField(Preferences.userNodeForPackage(Main.class).get("project_last_location", System.getProperty("user.home")));
+		final JTextField locationField = new JTextField(PreferenceManager.getString(PreferenceManager.PROJECT_LAST_LOCATION, System.getProperty("user.home")));
 		panel.add(locationField);
-		JButton locationChooser = new JButton("...");
+		final JButton locationChooser = new JButton("...");
 		panel.add(locationChooser);
 		locationChooser.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				JFileChooser fileChooser = new JFileChooser(System.getProperty("user.home"));
+				JFileChooser fileChooser = new JFileChooser(locationField.getText());
 				fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 				if (fileChooser.showDialog(panel, null) == JFileChooser.APPROVE_OPTION) {
 					locationField.setText(fileChooser.getSelectedFile().getAbsolutePath());
@@ -306,6 +306,7 @@ public class GUI extends JFrame {
 			}
 		});
 		if (JOptionPane.showConfirmDialog(null, p, "Enter map size:", JOptionPane.OK_CANCEL_OPTION) == 0) {
+			ProjectManager.refresh();
 			MapManager.createNewMap(Integer.parseInt(if1.getText()), Integer.parseInt(if2.getText()));
 		}
 	}

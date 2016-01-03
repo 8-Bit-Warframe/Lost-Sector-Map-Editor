@@ -42,7 +42,7 @@ import javax.swing.filechooser.FileView;
 public class GUI extends JFrame {
 	static {
 		try {
-			UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

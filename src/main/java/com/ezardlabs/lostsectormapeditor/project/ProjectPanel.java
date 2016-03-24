@@ -100,6 +100,8 @@ class ProjectPanel extends Panel {
 				JLabel label = new JLabel(text);
 				if (selected) {
 					label.setForeground(Color.WHITE);
+					label.setBackground(new Color(51, 153, 255));
+					label.setOpaque(true);
 				}
 				panel.add(label);
 				return panel;

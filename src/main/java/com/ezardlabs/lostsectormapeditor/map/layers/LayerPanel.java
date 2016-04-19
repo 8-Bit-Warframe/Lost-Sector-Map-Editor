@@ -53,9 +53,9 @@ class LayerPanel extends Panel {
 		add(buttons, BorderLayout.PAGE_END);
 	}
 
-	public static class DragDropList extends JList<Layer> {
+	private static class DragDropList extends JList<Layer> {
 
-		public DragDropList() {
+		DragDropList() {
 			super(LayerManager.getLayers());
 			setDragEnabled(true);
 			setDropMode(DropMode.INSERT);

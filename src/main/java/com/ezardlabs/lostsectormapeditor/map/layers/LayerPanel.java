@@ -17,7 +17,6 @@ import java.awt.event.ActionListener;
 import javax.swing.BoxLayout;
 import javax.swing.DropMode;
 import javax.swing.JButton;
-import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -28,10 +27,6 @@ class LayerPanel extends Panel {
 
 	LayerPanel() {
 		setLayout(new BorderLayout());
-
-		JLabel title = new JLabel("Layers");
-		title.setFont(new Font(title.getName(), Font.BOLD, 20));
-		add(title, BorderLayout.PAGE_START);
 
 		add(dragDropList, BorderLayout.CENTER);
 

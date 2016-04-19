@@ -53,6 +53,8 @@ public class GUI extends JFrame {
 	private JDialog dialog;
 
 	private GUI() {
+		setTitle("Lost Sector Map Editor");
+
 		setJMenuBar(new MenuBar());
 
 		JSplitPane sideBar = new JSplitPane(JSplitPane.VERTICAL_SPLIT, tabPanel, LayerManager.getLayerPanel());

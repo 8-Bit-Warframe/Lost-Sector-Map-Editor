@@ -1,5 +1,6 @@
 package com.ezardlabs.lostsectormapeditor.gui;
 
+import com.ezardlabs.lostsectormapeditor.PreferenceManager;
 import com.ezardlabs.lostsectormapeditor.sprites.SpriteManager;
 
 import java.awt.event.ActionEvent;
@@ -85,6 +86,7 @@ class MenuBar extends JMenuBar {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				JFileChooser fileChooser = new JFileChooser();
+				fileChooser.setCurrentDirectory(new File(PreferenceManager.getString(PreferenceManager.IMPORT_LAST_LOCATION, "C:\\")));
 				fileChooser.setFileFilter(new FileFilter() {
 					@Override
 					public boolean accept(File f) {
@@ -97,6 +99,8 @@ class MenuBar extends JMenuBar {
 					}
 				});
 				if (fileChooser.showDialog(null, "Open") == JFileChooser.APPROVE_OPTION) {
+					System.out.println(fileChooser.getCurrentDirectory().getAbsolutePath());
+					PreferenceManager.putString(PreferenceManager.IMPORT_LAST_LOCATION, fileChooser.getCurrentDirectory().getAbsolutePath());
 					SpriteManager.showSpriteCutterDialog(fileChooser.getSelectedFile());
 				}
 			}

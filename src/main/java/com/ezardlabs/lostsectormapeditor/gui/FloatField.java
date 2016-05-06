@@ -16,6 +16,10 @@ public class FloatField extends JTextField {
 		super(String.valueOf(number));
 	}
 
+	public float getFloat() {
+		return Float.parseFloat(getText());
+	}
+
 	protected Document createDefaultModel() {
 		return new FloatDocument();
 	}

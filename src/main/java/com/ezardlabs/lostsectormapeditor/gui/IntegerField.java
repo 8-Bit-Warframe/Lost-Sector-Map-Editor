@@ -16,6 +16,10 @@ public class IntegerField extends JTextField {
 		super(String.valueOf(number));
 	}
 
+	public int getInteger() {
+		return Integer.parseInt(getText());
+	}
+
 	protected Document createDefaultModel() {
 		return new IntegerDocument();
 	}

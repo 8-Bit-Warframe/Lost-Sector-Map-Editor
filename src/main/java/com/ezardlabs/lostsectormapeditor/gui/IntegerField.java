@@ -6,17 +6,21 @@ import javax.swing.text.BadLocationException;
 import javax.swing.text.Document;
 import javax.swing.text.PlainDocument;
 
-class IntegerField extends JTextField {
+public class IntegerField extends JTextField {
 
 	public IntegerField() {
 		super();
 	}
 
-	protected Document createDefaultModel() {
-		return new UpperCaseDocument();
+	public IntegerField(int number) {
+		super(String.valueOf(number));
 	}
 
-	private static class UpperCaseDocument extends PlainDocument {
+	protected Document createDefaultModel() {
+		return new IntegerDocument();
+	}
+
+	private static class IntegerDocument extends PlainDocument {
 
 		public void insertString(int offs, String str, AttributeSet a) throws BadLocationException {
 			if (str == null) {

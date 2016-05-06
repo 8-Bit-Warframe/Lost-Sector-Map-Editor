@@ -1,4 +1,4 @@
-package com.ezardlabs.lostsectormapeditor.map.layers;
+package com.ezardlabs.lostsectormapeditor.map.layers.main;
 
 import javax.swing.DefaultListModel;
 

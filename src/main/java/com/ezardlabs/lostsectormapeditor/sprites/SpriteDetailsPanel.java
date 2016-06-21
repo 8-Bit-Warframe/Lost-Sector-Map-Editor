@@ -8,9 +8,9 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.SpringLayout;
 
-public class SpriteDetailsPanel extends Panel {
+class SpriteDetailsPanel extends Panel {
 
-	public SpriteDetailsPanel() {
+	SpriteDetailsPanel() {
 		SpringLayout layout = new SpringLayout();
 		setLayout(layout);
 

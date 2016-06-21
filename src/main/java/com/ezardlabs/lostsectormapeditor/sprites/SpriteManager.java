@@ -7,6 +7,7 @@ import java.io.File;
 import java.io.IOException;
 
 import javax.swing.JFrame;
+import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 
 public class SpriteManager {
@@ -21,7 +22,7 @@ public class SpriteManager {
 			scp.loadSpritesheet(file);
 		} catch (IOException ignored) {
 		}
-		JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, scp, sdp);
+		JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, new JScrollPane(scp), sdp);
 		frame.add(splitPane);
 		frame.setPreferredSize(new Dimension((int) (GUI.getInstance().getWidth() * 0.8), (int) (GUI.getInstance().getHeight() * 0.8)));
 		frame.setResizable(false);

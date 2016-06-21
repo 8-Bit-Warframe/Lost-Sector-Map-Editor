@@ -29,4 +29,8 @@ public class ParallaxLayerManager {
 	public static ParallaxLayerPanel getLayerPanel() {
 		return layerPanel;
 	}
+
+	public static void clearLayers() {
+		layers.clear();
+	}
 }

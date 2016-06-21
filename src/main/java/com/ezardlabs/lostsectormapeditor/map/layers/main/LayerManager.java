@@ -29,4 +29,8 @@ public class LayerManager {
 	public static LayerPanel getLayerPanel() {
 		return layerPanel;
 	}
+
+	public static void clearLayers() {
+		layers.clear();
+	}
 }

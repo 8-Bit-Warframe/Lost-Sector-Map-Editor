@@ -13,8 +13,6 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
-import static com.ezardlabs.lostsectormapeditor.map.layers.parallax.ParallaxLayerManager.addLayer;
-
 public class ProjectManager {
 	private static Project currentProject;
 	private static final ProjectPanel projectPanel = new ProjectPanel();
@@ -37,9 +35,11 @@ public class ProjectManager {
 				currentProject = new Gson().fromJson(new FileReader(projectFile), Project.class);
 				projectPanel.setProject(currentProject);
 				PreferenceManager.putString(PreferenceManager.PROJECT_CURRENT, directory.getAbsolutePath());
+				LayerManager.clearLayers();
 				for (Layer layer : currentProject.getLayers()) {
 					LayerManager.addLayer(layer);
 				}
+				ParallaxLayerManager.clearLayers();
 				for (ParallaxLayer layer : currentProject.getParallaxLayers()) {
 					ParallaxLayerManager.addLayer(layer);
 				}

@@ -86,7 +86,7 @@ class MenuBar extends JMenuBar {
 		return file;
 	}
 
-	public JMenu createImportMenu() {
+	private JMenu createImportMenu() {
 		JMenu menu = new JMenu("Import");
 		JMenuItem spritesheet = new JMenuItem("Spritesheet");
 		spritesheet.addActionListener(new ActionListener() {

@@ -2,6 +2,7 @@ package com.ezardlabs.lostsectormapeditor.sprites;
 
 import com.ezardlabs.lostsectormapeditor.gui.Panel;
 
+import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
@@ -27,6 +28,9 @@ public class SpriteDetailsPanel extends Panel {
 		add(colliderLabel);
 		JCheckBox colliderField = new JCheckBox();
 		add(colliderField);
+
+		JButton cutSpriteButton = new JButton("Cut Sprite");
+		add(cutSpriteButton);
 
 		// Name label
 		layout.putConstraint(SpringLayout.NORTH, nameLabel, 15, SpringLayout.NORTH, this);
@@ -56,5 +60,9 @@ public class SpriteDetailsPanel extends Panel {
 		// Collider field
 		layout.putConstraint(SpringLayout.NORTH, colliderField, 15, SpringLayout.SOUTH, indexField);
 		layout.putConstraint(SpringLayout.EAST, colliderField, -15, SpringLayout.EAST, this);
+
+		// Cut sprite button
+		layout.putConstraint(SpringLayout.NORTH, cutSpriteButton, 15, SpringLayout.SOUTH, colliderLabel);
+		layout.putConstraint(SpringLayout.EAST, cutSpriteButton, -15, SpringLayout.EAST, this);
 	}
 }

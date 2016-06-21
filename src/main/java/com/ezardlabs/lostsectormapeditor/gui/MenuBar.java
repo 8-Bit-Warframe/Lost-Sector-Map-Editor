@@ -1,6 +1,7 @@
 package com.ezardlabs.lostsectormapeditor.gui;
 
 import com.ezardlabs.lostsectormapeditor.PreferenceManager;
+import com.ezardlabs.lostsectormapeditor.map.layers.parallax.ParallaxLayerManager;
 import com.ezardlabs.lostsectormapeditor.project.ProjectManager;
 import com.ezardlabs.lostsectormapeditor.sprites.SpriteManager;
 
@@ -22,6 +23,7 @@ class MenuBar extends JMenuBar {
 	MenuBar() {
 		add(createFileMenu());
 		add(createImportMenu());
+		add(createTestMenu());
 	}
 
 	private JMenu createFileMenu() {
@@ -113,6 +115,19 @@ class MenuBar extends JMenuBar {
 			}
 		});
 		menu.add(spritesheet);
+		return menu;
+	}
+
+	private JMenu createTestMenu() {
+		JMenu menu = new JMenu("Test");
+		JMenuItem parallax = new JMenuItem("Parallax");
+		parallax.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				ParallaxLayerManager.showTestWindow();
+			}
+		});
+		menu.add(parallax);
 		return menu;
 	}
 }

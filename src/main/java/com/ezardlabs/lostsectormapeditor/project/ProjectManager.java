@@ -43,6 +43,7 @@ public class ProjectManager {
 				for (ParallaxLayer layer : currentProject.getParallaxLayers()) {
 					ParallaxLayerManager.addLayer(layer);
 				}
+				ParallaxLayerManager.loadAllParallaxImages();
 //				new DirectoryWatcher(directory, new FileChangeListener() {
 //					@Override
 //					public void onFileCreated(File file) {

@@ -40,6 +40,16 @@ public class ParallaxLayer extends AbstractLayer {
 		return image;
 	}
 
+	public void loadImage() {
+		try {
+			image = ImageIO.read(new File(imageLocation));
+		} catch (IOException e) {
+			e.printStackTrace();
+			throw new RuntimeException("Image does not exist");
+		}
+		System.out.println(name + ": " + image);
+	}
+
 	public void setImage(BufferedImage image) {
 		this.image = image;
 	}

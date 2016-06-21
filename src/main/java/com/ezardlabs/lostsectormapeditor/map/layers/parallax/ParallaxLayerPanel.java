@@ -1,5 +1,6 @@
 package com.ezardlabs.lostsectormapeditor.map.layers.parallax;
 
+import com.ezardlabs.lostsectormapeditor.PreferenceManager;
 import com.ezardlabs.lostsectormapeditor.gui.FloatField;
 import com.ezardlabs.lostsectormapeditor.gui.GUI;
 import com.ezardlabs.lostsectormapeditor.gui.IntegerField;
@@ -223,8 +224,11 @@ class ParallaxLayerPanel extends AbstractLayerPanel<ParallaxLayer> {
 				JFileChooser imageChooser = new JFileChooser(imageLocationField.getText());
 				imageChooser.removeChoosableFileFilter(imageChooser.getFileFilter());
 				imageChooser.setFileFilter(new FileNameExtensionFilter("Images", "jpg", "png"));
+				String last = PreferenceManager.getString(PreferenceManager.PARALLAX_LAST_LOCATION);
+				imageChooser.setCurrentDirectory(last == null ? null : new File(last));
 				if (imageChooser.showDialog(panel, null) == JFileChooser.APPROVE_OPTION) {
 					imageLocationField.setText(imageChooser.getSelectedFile().getAbsolutePath());
+					PreferenceManager.putString(PreferenceManager.PARALLAX_LAST_LOCATION, imageLocationField.getText());
 				}
 			}
 		});

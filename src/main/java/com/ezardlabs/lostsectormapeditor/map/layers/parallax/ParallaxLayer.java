@@ -11,7 +11,7 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 public class ParallaxLayer extends AbstractLayer {
-	private BufferedImage image;
+	private transient BufferedImage image;
 	private String imageLocation;
 	private float speed;
 	private int y;

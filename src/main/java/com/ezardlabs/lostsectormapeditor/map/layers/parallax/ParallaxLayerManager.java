@@ -22,6 +22,10 @@ public class ParallaxLayerManager {
 		return layers;
 	}
 
+	public static int getNumLayers() {
+		return layers.size();
+	}
+
 	public static ParallaxLayerPanel getLayerPanel() {
 		return layerPanel;
 	}

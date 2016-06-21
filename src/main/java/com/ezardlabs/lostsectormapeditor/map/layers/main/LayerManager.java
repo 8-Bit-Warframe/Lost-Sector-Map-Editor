@@ -22,6 +22,10 @@ public class LayerManager {
 		return layers;
 	}
 
+	public static int getNumLayers() {
+		return layers.size();
+	}
+
 	public static LayerPanel getLayerPanel() {
 		return layerPanel;
 	}

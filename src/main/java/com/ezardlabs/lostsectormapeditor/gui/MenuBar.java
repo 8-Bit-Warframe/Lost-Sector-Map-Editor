@@ -1,12 +1,14 @@
 package com.ezardlabs.lostsectormapeditor.gui;
 
 import com.ezardlabs.lostsectormapeditor.PreferenceManager;
+import com.ezardlabs.lostsectormapeditor.project.ProjectManager;
 import com.ezardlabs.lostsectormapeditor.sprites.SpriteManager;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.InputEvent;
 import java.io.File;
+import java.io.IOException;
 
 import javax.swing.JFileChooser;
 import javax.swing.JMenu;
@@ -60,6 +62,11 @@ class MenuBar extends JMenuBar {
 		saveMap.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				try {
+					ProjectManager.saveCurrentProject();
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
 			}
 		});
 		JMenuItem saveMapAs = new JMenuItem("Save as...");

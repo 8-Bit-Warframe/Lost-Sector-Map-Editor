@@ -28,17 +28,22 @@ public class MapManager {
 	}
 
 	public static void openMap(String file) {
+		System.out.println(file);
 		try {
 			MapManager.map = new Gson().fromJson(new FileReader(new File(file)), Map.class);
 			MapManager.mapFile = file;
 
 			LayerManager.clearLayers();
-			for (Layer layer : map.getLayers()) {
-				LayerManager.addLayer(layer);
+			if (map.getLayers() != null) {
+				for (Layer layer : map.getLayers()) {
+					LayerManager.addLayer(layer);
+				}
 			}
 			ParallaxLayerManager.clearLayers();
-			for (ParallaxLayer layer : map.getParallaxLayers()) {
-				ParallaxLayerManager.addLayer(layer);
+			if (map.getParallaxLayers() != null) {
+				for (ParallaxLayer layer : map.getParallaxLayers()) {
+					ParallaxLayerManager.addLayer(layer);
+				}
 			}
 			ParallaxLayerManager.loadAllParallaxImages();
 

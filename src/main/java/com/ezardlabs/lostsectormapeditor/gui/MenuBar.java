@@ -10,12 +10,16 @@ import java.awt.event.ActionListener;
 import java.awt.event.InputEvent;
 import java.io.File;
 
+import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
 import javax.swing.filechooser.FileFilter;
+
+import static javafx.scene.input.KeyCode.J;
 
 class MenuBar extends JMenuBar {
 
@@ -58,7 +62,7 @@ class MenuBar extends JMenuBar {
 			}
 		});
 		JMenu openRecentMap = new JMenu("Open recent");
-		JMenuItem saveMap = new JMenuItem("Save");
+		JMenuItem saveMap = new JMenuItem("Save map");
 		saveMap.setAccelerator(KeyStroke.getKeyStroke('N', InputEvent.CTRL_DOWN_MASK));
 		saveMap.addActionListener(new ActionListener() {
 			@Override
@@ -66,11 +70,12 @@ class MenuBar extends JMenuBar {
 				MapManager.saveMap();
 			}
 		});
-		JMenuItem saveMapAs = new JMenuItem("Save as...");
+		JMenuItem saveMapAs = new JMenuItem("Save map as...");
 		saveMapAs.setAccelerator(KeyStroke.getKeyStroke('N', InputEvent.CTRL_DOWN_MASK | InputEvent.SHIFT_DOWN_MASK));
 		saveMapAs.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				MapManager.saveMap(JOptionPane.showInputDialog(GUI.getInstance(), "File name:", "Save map as...", JOptionPane.QUESTION_MESSAGE));
 			}
 		});
 

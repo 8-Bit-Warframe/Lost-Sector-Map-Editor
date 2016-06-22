@@ -34,19 +34,27 @@ public class MapManager {
 	}
 
 	public static void saveMap() {
-		if (map != null) {
-			File projectFile = new File(mapFile);
-			try {
-				BufferedWriter writer = new BufferedWriter(new FileWriter(projectFile));
-				writer.write(new Gson().toJson(map));
-				writer.close();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+		if (mapFile != null) {
+			saveMap(mapFile);
 		}
 	}
 
 	public static Map getMap() {
 		return map;
+	}
+
+	public static void saveMap(String fileName) {
+		if (map != null) {
+			File file = new File(fileName);
+			try {
+				if (file.exists() || file.createNewFile()) {
+					BufferedWriter writer = new BufferedWriter(new FileWriter(file));
+					writer.write(new Gson().toJson(map));
+					writer.close();
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 }

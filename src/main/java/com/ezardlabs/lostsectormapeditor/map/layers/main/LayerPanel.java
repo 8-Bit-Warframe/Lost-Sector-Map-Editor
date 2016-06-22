@@ -96,7 +96,7 @@ class LayerPanel extends AbstractLayerPanel<Layer> {
 
 	@Override
 	protected void onAddLayerClicked() {
-		LayerManager.addLayer(new Layer(JOptionPane.showInputDialog("Layer name"), 0, 0));
+		LayerManager.addLayer(new Layer(JOptionPane.showInputDialog("Layer name")));
 	}
 
 	@Override

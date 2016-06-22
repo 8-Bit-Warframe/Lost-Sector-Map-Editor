@@ -108,7 +108,6 @@ class MenuBar extends JMenuBar {
 					}
 				});
 				if (fileChooser.showDialog(null, "Open") == JFileChooser.APPROVE_OPTION) {
-					System.out.println(fileChooser.getCurrentDirectory().getAbsolutePath());
 					PreferenceManager.putString(PreferenceManager.IMPORT_LAST_LOCATION, fileChooser.getCurrentDirectory().getAbsolutePath());
 					SpriteManager.showSpriteCutterDialog(fileChooser.getSelectedFile());
 				}

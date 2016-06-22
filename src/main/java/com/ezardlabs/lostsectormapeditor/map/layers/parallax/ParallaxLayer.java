@@ -47,7 +47,6 @@ public class ParallaxLayer extends AbstractLayer {
 			e.printStackTrace();
 			throw new RuntimeException("Image does not exist");
 		}
-		System.out.println(name + ": " + image);
 	}
 
 	public void setImage(BufferedImage image) {

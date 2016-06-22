@@ -1,5 +1,9 @@
 package com.ezardlabs.lostsectormapeditor.map;
 
+import com.ezardlabs.lostsectormapeditor.map.layers.main.Layer;
+import com.ezardlabs.lostsectormapeditor.map.layers.main.LayerManager;
+import com.ezardlabs.lostsectormapeditor.map.layers.parallax.ParallaxLayer;
+import com.ezardlabs.lostsectormapeditor.map.layers.parallax.ParallaxLayerManager;
 import com.google.gson.Gson;
 
 import java.io.BufferedWriter;
@@ -27,6 +31,17 @@ public class MapManager {
 		try {
 			MapManager.map = new Gson().fromJson(new FileReader(new File(file)), Map.class);
 			MapManager.mapFile = file;
+
+			LayerManager.clearLayers();
+			for (Layer layer : map.getLayers()) {
+				LayerManager.addLayer(layer);
+			}
+			ParallaxLayerManager.clearLayers();
+			for (ParallaxLayer layer : map.getParallaxLayers()) {
+				ParallaxLayerManager.addLayer(layer);
+			}
+			ParallaxLayerManager.loadAllParallaxImages();
+
 			mapPanel.invalidate();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -45,6 +60,14 @@ public class MapManager {
 
 	public static void saveMap(String fileName) {
 		if (map != null) {
+			Layer[] layers = new Layer[LayerManager.getNumLayers()];
+			LayerManager.getLayers().copyInto(layers);
+			map.setLayers(layers);
+
+			ParallaxLayer[] parallaxLayers = new ParallaxLayer[ParallaxLayerManager.getNumLayers()];
+			ParallaxLayerManager.getLayers().copyInto(parallaxLayers);
+			map.setParallaxLayers(parallaxLayers);
+
 			File file = new File(fileName);
 			try {
 				if (file.exists() || file.createNewFile()) {

@@ -29,6 +29,8 @@ public class ParallaxLayer extends AbstractLayer {
 		this.imageLocation = imageLocation;
 		this.y = y;
 		this.speed = speed;
+		this.width = image.getWidth();
+		this.height = image.getHeight();
 	}
 
 	@Override

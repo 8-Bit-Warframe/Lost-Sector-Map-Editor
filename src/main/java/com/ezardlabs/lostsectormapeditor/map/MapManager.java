@@ -13,6 +13,11 @@ public class MapManager {
 		return mapPanel;
 	}
 
+	public static void setMap(Map map) {
+		MapManager.map = map;
+		mapPanel.invalidate();
+	}
+
 	public static Map getMap() {
 		return map;
 	}

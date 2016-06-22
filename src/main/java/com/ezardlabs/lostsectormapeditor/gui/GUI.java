@@ -287,21 +287,26 @@ public class GUI extends JFrame {
 		c.gridy = 0;
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.weightx = 0.2;
-		p.add(new JLabel("Width:"), c);
+		p.add(new JLabel("Name:"), c);
 		c.gridy = 1;
+		p.add(new JLabel("Width:"), c);
+		c.gridy = 2;
 		p.add(new JLabel("Height:"), c);
 		c.weightx = 0.8;
 		c.gridx = 1;
 		c.gridy = 0;
-		final IntegerField if1 = new IntegerField();
-		p.add(if1, c);
+		final JTextField tf = new JTextField();
+		p.add(tf, c);
 		c.gridy = 1;
+		IntegerField if1 = new IntegerField();
+		p.add(if1, c);
+		c.gridy = 2;
 		IntegerField if2 = new IntegerField();
 		p.add(if2, c);
 		if1.addAncestorListener(new AncestorListener() {
 			@Override
 			public void ancestorAdded(AncestorEvent event) {
-				if1.requestFocusInWindow();
+				tf.requestFocusInWindow();
 			}
 
 			@Override
@@ -314,7 +319,7 @@ public class GUI extends JFrame {
 		});
 		if (JOptionPane.showConfirmDialog(null, p, "Enter map size:", JOptionPane.OK_CANCEL_OPTION) == 0) {
 			ProjectManager.refresh();
-			MapManager.createNewMap(Integer.parseInt(if1.getText()), Integer.parseInt(if2.getText()));
+			MapManager.createNewMap(tf.getText(), if1.getInteger(), if2.getInteger());
 		}
 	}
 }

@@ -1,6 +1,7 @@
 package com.ezardlabs.lostsectormapeditor.project;
 
 import com.ezardlabs.lostsectormapeditor.Main;
+import com.ezardlabs.lostsectormapeditor.gui.GUI;
 import com.ezardlabs.lostsectormapeditor.gui.Panel;
 import com.ezardlabs.lostsectormapeditor.map.MapManager;
 
@@ -15,7 +16,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.FilenameFilter;
-import java.io.IOException;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -25,7 +25,6 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
-import javax.swing.JTextField;
 import javax.swing.JTree;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
@@ -185,7 +184,7 @@ class ProjectPanel extends Panel {
 							newMapFile.addActionListener(new ActionListener() {
 								@Override
 								public void actionPerformed(ActionEvent e) {
-									final JPanel panel = new JPanel();
+									/*final JPanel panel = new JPanel();
 									panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 
 									JLabel label = new JLabel("Enter a new file name:");
@@ -199,14 +198,17 @@ class ProjectPanel extends Panel {
 									if (JOptionPane
 											.showOptionDialog(null, panel, "New map file", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, new Object[]{"OK", "Cancel"}, null) == 0) {
 										try {
-											if (new File(ProjectManager.getCurrentProject().getDirectory() + File.separator + textField.getText() + ".lsmap").createNewFile()) {
+											File file = new File(ProjectManager.getCurrentProject().getDirectory() + File.separator + textField.getText() + ".lsmap");
+											if (file.createNewFile()) {
 												ProjectManager.refresh();
+
 											} else {
 												JOptionPane.showConfirmDialog(null, "Failed to create file", "Error", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE, null);
 											}
 										} catch (IOException ignored) {
 										}
-									}
+									}*/
+									GUI.getInstance().showNewMapDialog();
 								}
 							});
 							popup.add(newMapFile);

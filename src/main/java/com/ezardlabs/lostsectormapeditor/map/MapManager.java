@@ -4,6 +4,7 @@ import com.ezardlabs.lostsectormapeditor.map.layers.main.Layer;
 import com.ezardlabs.lostsectormapeditor.map.layers.main.LayerManager;
 import com.ezardlabs.lostsectormapeditor.map.layers.parallax.ParallaxLayer;
 import com.ezardlabs.lostsectormapeditor.map.layers.parallax.ParallaxLayerManager;
+import com.ezardlabs.lostsectormapeditor.project.ProjectManager;
 import com.google.gson.Gson;
 
 import java.io.BufferedWriter;
@@ -16,10 +17,12 @@ import java.io.IOException;
 public class MapManager {
 	private static final MapPanel mapPanel = new MapPanel();
 	private static Map map;
-	private static String mapFile;
+	private static File file;
 
-	public static void createNewMap(int width, int height) {
+	public static void createNewMap(String name, int width, int height) {
+		MapManager.file = new File(ProjectManager.getCurrentProject().getDirectory() + File.separator + name + ".lsmap");
 		map = new Map(width, height);
+		saveMap();
 		mapPanel.invalidate();
 	}
 
@@ -30,8 +33,9 @@ public class MapManager {
 	public static void openMap(String file) {
 		System.out.println(file);
 		try {
-			MapManager.map = new Gson().fromJson(new FileReader(new File(file)), Map.class);
-			MapManager.mapFile = file;
+			File f = new File(file);
+			MapManager.map = new Gson().fromJson(new FileReader(f), Map.class);
+			MapManager.file = f;
 
 			LayerManager.clearLayers();
 			if (map.getLayers() != null) {
@@ -54,8 +58,8 @@ public class MapManager {
 	}
 
 	public static void saveMap() {
-		if (mapFile != null) {
-			saveMap(mapFile);
+		if (file != null) {
+			saveMap(file);
 		}
 	}
 
@@ -63,7 +67,7 @@ public class MapManager {
 		return map;
 	}
 
-	public static void saveMap(String fileName) {
+	public static void saveMap(File file) {
 		if (map != null) {
 			Layer[] layers = new Layer[LayerManager.getNumLayers()];
 			LayerManager.getLayers().copyInto(layers);
@@ -73,7 +77,6 @@ public class MapManager {
 			ParallaxLayerManager.getLayers().copyInto(parallaxLayers);
 			map.setParallaxLayers(parallaxLayers);
 
-			File file = new File(fileName);
 			try {
 				if (file.exists() || file.createNewFile()) {
 					BufferedWriter writer = new BufferedWriter(new FileWriter(file));
@@ -83,6 +86,7 @@ public class MapManager {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
+			ProjectManager.refresh();
 		}
 	}
 }

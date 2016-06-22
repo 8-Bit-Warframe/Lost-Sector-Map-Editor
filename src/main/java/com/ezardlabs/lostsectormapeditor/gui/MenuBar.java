@@ -73,7 +73,8 @@ class MenuBar extends JMenuBar {
 		saveMapAs.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				MapManager.saveMap(JOptionPane.showInputDialog(GUI.getInstance(), "File name:", "Save map as...", JOptionPane.QUESTION_MESSAGE));
+				MapManager.saveMap(new File(ProjectManager.getCurrentProject().getDirectory() + File.separator +
+						JOptionPane.showInputDialog(GUI.getInstance(), "File name:", "Save map as...", JOptionPane.QUESTION_MESSAGE) + ".lsmap"));
 			}
 		});
 

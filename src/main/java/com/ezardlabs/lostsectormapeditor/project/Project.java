@@ -2,7 +2,7 @@ package com.ezardlabs.lostsectormapeditor.project;
 
 import java.io.File;
 
-class Project {
+public class Project {
 	private final String name;
 	private final File directory;
 

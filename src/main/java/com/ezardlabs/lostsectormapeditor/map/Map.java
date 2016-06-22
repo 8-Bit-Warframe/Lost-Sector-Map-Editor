@@ -30,10 +30,10 @@ public class Map {
 
 		g.setColor(Color.DARK_GRAY);
 		for (int i = 0; i <= width; i++) {
-			g.drawLine(i * TILE_SIZE, 0, i * TILE_SIZE, width * TILE_SIZE);
+			g.drawLine(i * TILE_SIZE, 0, i * TILE_SIZE, height * TILE_SIZE);
 		}
 		for (int i = 0; i <= height; i++) {
-			g.drawLine(0, i * TILE_SIZE, height * TILE_SIZE, i * TILE_SIZE);
+			g.drawLine(0, i * TILE_SIZE, width * TILE_SIZE, i * TILE_SIZE);
 		}
 		for (int i = 0; i < LayerManager.getLayers().size(); i++) {
 			LayerManager.getLayers().get(i).draw(g, camera, zoom);

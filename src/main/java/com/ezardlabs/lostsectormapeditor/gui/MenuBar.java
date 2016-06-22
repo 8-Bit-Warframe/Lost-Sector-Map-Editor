@@ -3,6 +3,7 @@ package com.ezardlabs.lostsectormapeditor.gui;
 import com.ezardlabs.lostsectormapeditor.PreferenceManager;
 import com.ezardlabs.lostsectormapeditor.map.MapManager;
 import com.ezardlabs.lostsectormapeditor.map.layers.parallax.ParallaxLayerManager;
+import com.ezardlabs.lostsectormapeditor.project.ProjectManager;
 import com.ezardlabs.lostsectormapeditor.sprites.SpriteManager;
 
 import java.awt.event.ActionEvent;
@@ -10,7 +11,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.InputEvent;
 import java.io.File;
 
-import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -18,8 +18,6 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
 import javax.swing.filechooser.FileFilter;
-
-import static javafx.scene.input.KeyCode.J;
 
 class MenuBar extends JMenuBar {
 
@@ -79,12 +77,22 @@ class MenuBar extends JMenuBar {
 			}
 		});
 
+		JMenuItem saveProject = new JMenuItem("Save project");
+		saveProject.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				ProjectManager.saveCurrentProject();
+			}
+		});
+
 		file.add(newMenu);
 		file.add(openMap);
 		file.add(openRecentMap);
 		file.addSeparator();
 		file.add(saveMap);
 		file.add(saveMapAs);
+		file.addSeparator();
+		file.add(saveProject);
 		return file;
 	}
 

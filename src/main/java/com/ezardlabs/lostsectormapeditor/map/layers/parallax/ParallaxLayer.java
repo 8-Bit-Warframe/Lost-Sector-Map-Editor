@@ -15,6 +15,8 @@ public class ParallaxLayer extends AbstractLayer {
 	private String imageLocation;
 	private float speed;
 	private int y;
+	private int width;
+	private int height;
 
 	public ParallaxLayer(String name, String imageLocation, int y, float speed) {
 		super(name);
@@ -32,6 +34,14 @@ public class ParallaxLayer extends AbstractLayer {
 	@Override
 	public void draw(Graphics2D g, Point camera, double zoom) {
 
+	}
+
+	public int getHeight() {
+		return height;
+	}
+
+	public int getWidth() {
+		return width;
 	}
 
 	public BufferedImage getImage() {

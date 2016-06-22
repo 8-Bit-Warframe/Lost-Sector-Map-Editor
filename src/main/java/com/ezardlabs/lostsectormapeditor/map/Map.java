@@ -2,15 +2,18 @@ package com.ezardlabs.lostsectormapeditor.map;
 
 import com.ezardlabs.lostsectormapeditor.map.layers.main.Layer;
 import com.ezardlabs.lostsectormapeditor.map.layers.main.LayerManager;
+import com.ezardlabs.lostsectormapeditor.map.layers.parallax.ParallaxLayer;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Point;
 
-class Map {
+public class Map {
 	private static final int TILE_SIZE = 16;
 	private int width;
 	private int height;
+	private Layer[] layers;
+	private ParallaxLayer[] parallaxLayers;
 
 	public Map(int width, int height) {
 		this.width = width;
@@ -35,5 +38,21 @@ class Map {
 		for (int i = 0; i < LayerManager.getLayers().size(); i++) {
 			LayerManager.getLayers().get(i).draw(g, camera, zoom);
 		}
+	}
+
+	public void setLayers(Layer[] layers) {
+		this.layers = layers;
+	}
+
+	public Layer[] getLayers() {
+		return layers;
+	}
+
+	public void setParallaxLayers(ParallaxLayer[] parallaxLayers) {
+		this.parallaxLayers = parallaxLayers;
+	}
+
+	public ParallaxLayer[] getParallaxLayers() {
+		return parallaxLayers;
 	}
 }

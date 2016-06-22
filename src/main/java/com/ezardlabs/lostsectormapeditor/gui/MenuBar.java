@@ -61,7 +61,7 @@ class MenuBar extends JMenuBar {
 		});
 		JMenu openRecentMap = new JMenu("Open recent");
 		JMenuItem saveMap = new JMenuItem("Save map");
-		saveMap.setAccelerator(KeyStroke.getKeyStroke('N', InputEvent.CTRL_DOWN_MASK));
+		saveMap.setAccelerator(KeyStroke.getKeyStroke('S', InputEvent.CTRL_DOWN_MASK));
 		saveMap.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -69,7 +69,7 @@ class MenuBar extends JMenuBar {
 			}
 		});
 		JMenuItem saveMapAs = new JMenuItem("Save map as...");
-		saveMapAs.setAccelerator(KeyStroke.getKeyStroke('N', InputEvent.CTRL_DOWN_MASK | InputEvent.SHIFT_DOWN_MASK));
+		saveMapAs.setAccelerator(KeyStroke.getKeyStroke('S', InputEvent.CTRL_DOWN_MASK | InputEvent.SHIFT_DOWN_MASK));
 		saveMapAs.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {

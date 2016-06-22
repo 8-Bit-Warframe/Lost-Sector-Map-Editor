@@ -17,7 +17,7 @@ public class ParallaxLayer extends AbstractLayer {
 	private int y;
 
 	public ParallaxLayer(String name, String imageLocation, int y, float speed) {
-		super(name, 0, 0);
+		super(name);
 		try {
 			image = ImageIO.read(new File(imageLocation));
 		} catch (IOException e) {
@@ -27,8 +27,6 @@ public class ParallaxLayer extends AbstractLayer {
 		this.imageLocation = imageLocation;
 		this.y = y;
 		this.speed = speed;
-		width = image.getWidth();
-		height = image.getHeight();
 	}
 
 	@Override

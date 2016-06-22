@@ -7,8 +7,8 @@ import java.awt.Point;
 
 public class Layer extends AbstractLayer {
 
-	public Layer(String name, int width, int height) {
-		super(name, width, height);
+	public Layer(String name) {
+		super(name);
 	}
 
 	public void draw(Graphics2D g, Point camera, double zoom) {

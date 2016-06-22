@@ -5,13 +5,9 @@ import java.awt.Point;
 
 public abstract class AbstractLayer {
 	protected String name;
-	protected int width;
-	protected int height;
 
-	public AbstractLayer(String name, int width, int height) {
+	public AbstractLayer(String name) {
 		this.name = name;
-		this.width = width;
-		this.height = height;
 	}
 
 	public abstract void draw(Graphics2D g, Point camera, double zoom);
@@ -22,14 +18,6 @@ public abstract class AbstractLayer {
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public int getWidth() {
-		return width;
-	}
-
-	public int getHeight() {
-		return height;
 	}
 
 	@Override

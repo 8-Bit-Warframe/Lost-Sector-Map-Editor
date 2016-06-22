@@ -18,7 +18,7 @@ public class Map {
 	public Map(int width, int height) {
 		this.width = width;
 		this.height = height;
-		LayerManager.getLayers().addElement(new Layer("Main", width, height));
+		LayerManager.getLayers().addElement(new Layer("Main"));
 	}
 
 	public void draw(Graphics2D g, Point camera, double zoom) {

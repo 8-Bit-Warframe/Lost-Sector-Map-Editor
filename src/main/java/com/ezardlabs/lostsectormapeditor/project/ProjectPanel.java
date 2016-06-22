@@ -2,6 +2,7 @@ package com.ezardlabs.lostsectormapeditor.project;
 
 import com.ezardlabs.lostsectormapeditor.Main;
 import com.ezardlabs.lostsectormapeditor.gui.Panel;
+import com.ezardlabs.lostsectormapeditor.map.MapManager;
 
 import java.awt.Color;
 import java.awt.Component;
@@ -216,7 +217,7 @@ class ProjectPanel extends Panel {
 					int selRow = tree.getRowForLocation(e.getX(), e.getY());
 					TreePath selPath = tree.getPathForLocation(e.getX(), e.getY());
 					if (selRow != -1 && selPath != null && e.getClickCount() == 2 && selPath.toString().replaceAll("\\[|\\]", "").endsWith(".lsmap")) {
-						ProjectManager.openMap(selPath.getLastPathComponent().toString().replaceAll("\\[|\\]", ""));
+						MapManager.openMap(selPath.getLastPathComponent().toString().replaceAll("\\[|\\]", ""));
 					}
 				}
 			}

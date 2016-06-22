@@ -12,8 +12,8 @@ public class Map {
 	private static final int TILE_SIZE = 16;
 	private int width;
 	private int height;
-	private Layer[] layers;
-	private ParallaxLayer[] parallaxLayers;
+	private Layer[] layers = new Layer[0];
+	private ParallaxLayer[] parallaxLayers = new ParallaxLayer[0];
 
 	public Map(int width, int height) {
 		this.width = width;

@@ -1,7 +1,9 @@
 package com.ezardlabs.lostsectormapeditor.project;
 
 import com.ezardlabs.lostsectormapeditor.Main;
+import com.ezardlabs.lostsectormapeditor.gui.GUI;
 import com.ezardlabs.lostsectormapeditor.gui.Panel;
+import com.ezardlabs.lostsectormapeditor.map.MapManager;
 
 import java.awt.Color;
 import java.awt.Component;
@@ -10,11 +12,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.io.File;
 import java.io.FilenameFilter;
-import java.io.IOException;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -24,7 +25,6 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
-import javax.swing.JTextField;
 import javax.swing.JTree;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
@@ -100,12 +100,14 @@ class ProjectPanel extends Panel {
 				JLabel label = new JLabel(text);
 				if (selected) {
 					label.setForeground(Color.WHITE);
+					label.setBackground(new Color(51, 153, 255));
+					label.setOpaque(true);
 				}
 				panel.add(label);
 				return panel;
 			}
 		});
-		tree.addMouseListener(new MouseListener() {
+		/*tree.addMouseListener(new MouseListener() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 
@@ -167,6 +169,59 @@ class ProjectPanel extends Panel {
 			@Override
 			public void mouseExited(MouseEvent e) {
 
+			}
+		});*/
+		tree.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				if (SwingUtilities.isRightMouseButton(e)) {
+					int selRow = tree.getRowForLocation(e.getX(), e.getY());
+					TreePath selPath = tree.getPathForLocation(e.getX(), e.getY());
+					if (selRow != -1) {
+						if (e.getClickCount() == 1 && selPath != null && new File(selPath.toString().replaceAll("\\[|\\]", "")).isDirectory()) {
+							JPopupMenu popup = new JPopupMenu();
+							JMenuItem newMapFile = new JMenuItem("Create new map file...");
+							newMapFile.addActionListener(new ActionListener() {
+								@Override
+								public void actionPerformed(ActionEvent e) {
+									/*final JPanel panel = new JPanel();
+									panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+
+									JLabel label = new JLabel("Enter a new file name:");
+									panel.add(label);
+
+									panel.add(Box.createVerticalStrut(5));
+
+									JTextField textField = new JTextField();
+									panel.add(textField);
+
+									if (JOptionPane
+											.showOptionDialog(null, panel, "New map file", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, new Object[]{"OK", "Cancel"}, null) == 0) {
+										try {
+											File file = new File(ProjectManager.getCurrentProject().getDirectory() + File.separator + textField.getText() + ".lsmap");
+											if (file.createNewFile()) {
+												ProjectManager.refresh();
+
+											} else {
+												JOptionPane.showConfirmDialog(null, "Failed to create file", "Error", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE, null);
+											}
+										} catch (IOException ignored) {
+										}
+									}*/
+									GUI.getInstance().showNewMapDialog();
+								}
+							});
+							popup.add(newMapFile);
+							popup.show(tree, e.getX(), e.getY());
+						}
+					}
+				} else {
+					int selRow = tree.getRowForLocation(e.getX(), e.getY());
+					TreePath selPath = tree.getPathForLocation(e.getX(), e.getY());
+					if (selRow != -1 && selPath != null && e.getClickCount() == 2 && selPath.toString().replaceAll("\\[|\\]", "").endsWith(".lsmap")) {
+						MapManager.openMap(selPath.getLastPathComponent().toString().replaceAll("\\[|\\]", ""));
+					}
+				}
 			}
 		});
 	}

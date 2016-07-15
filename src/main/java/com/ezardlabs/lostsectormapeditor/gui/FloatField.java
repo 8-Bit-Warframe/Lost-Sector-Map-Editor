@@ -6,25 +6,25 @@ import javax.swing.text.BadLocationException;
 import javax.swing.text.Document;
 import javax.swing.text.PlainDocument;
 
-public class IntegerField extends JTextField {
+public class FloatField extends JTextField {
 
-	public IntegerField() {
+	public FloatField() {
 		super();
 	}
 
-	public IntegerField(int number) {
+	public FloatField(float number) {
 		super(String.valueOf(number));
 	}
 
-	public int getInteger() {
-		return Integer.parseInt(getText());
+	public float getFloat() {
+		return Float.parseFloat(getText());
 	}
 
 	protected Document createDefaultModel() {
-		return new IntegerDocument();
+		return new FloatDocument();
 	}
 
-	private static class IntegerDocument extends PlainDocument {
+	private static class FloatDocument extends PlainDocument {
 
 		public void insertString(int offs, String str, AttributeSet a) throws BadLocationException {
 			if (str == null) {
@@ -33,6 +33,7 @@ public class IntegerField extends JTextField {
 			char[] chars = str.toCharArray();
 			boolean ok = true;
 			for (char c : chars) {
+				if (c == '.') continue;
 				try {
 					Integer.parseInt(String.valueOf(c));
 				} catch (NumberFormatException exc) {

@@ -1,5 +1,9 @@
 package com.ezardlabs.lostsectormapeditor.gui;
 
+import com.ezardlabs.lostsectormapeditor.PreferenceManager;
+import com.ezardlabs.lostsectormapeditor.map.MapManager;
+import com.ezardlabs.lostsectormapeditor.map.layers.parallax.ParallaxLayerManager;
+import com.ezardlabs.lostsectormapeditor.project.ProjectManager;
 import com.ezardlabs.lostsectormapeditor.sprites.SpriteManager;
 
 import java.awt.event.ActionEvent;
@@ -11,6 +15,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
 import javax.swing.filechooser.FileFilter;
 
@@ -19,6 +24,7 @@ class MenuBar extends JMenuBar {
 	MenuBar() {
 		add(createFileMenu());
 		add(createImportMenu());
+		add(createTestMenu());
 	}
 
 	private JMenu createFileMenu() {
@@ -54,18 +60,29 @@ class MenuBar extends JMenuBar {
 			}
 		});
 		JMenu openRecentMap = new JMenu("Open recent");
-		JMenuItem saveMap = new JMenuItem("Save");
-		saveMap.setAccelerator(KeyStroke.getKeyStroke('N', InputEvent.CTRL_DOWN_MASK));
+		JMenuItem saveMap = new JMenuItem("Save map");
+		saveMap.setAccelerator(KeyStroke.getKeyStroke('S', InputEvent.CTRL_DOWN_MASK));
 		saveMap.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				MapManager.saveMap();
 			}
 		});
-		JMenuItem saveMapAs = new JMenuItem("Save as...");
-		saveMapAs.setAccelerator(KeyStroke.getKeyStroke('N', InputEvent.CTRL_DOWN_MASK | InputEvent.SHIFT_DOWN_MASK));
+		JMenuItem saveMapAs = new JMenuItem("Save map as...");
+		saveMapAs.setAccelerator(KeyStroke.getKeyStroke('S', InputEvent.CTRL_DOWN_MASK | InputEvent.SHIFT_DOWN_MASK));
 		saveMapAs.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				MapManager.saveMap(new File(ProjectManager.getCurrentProject().getDirectory() + File.separator +
+						JOptionPane.showInputDialog(GUI.getInstance(), "File name:", "Save map as...", JOptionPane.QUESTION_MESSAGE) + ".lsmap"));
+			}
+		});
+
+		JMenuItem saveProject = new JMenuItem("Save project");
+		saveProject.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				ProjectManager.saveCurrentProject();
 			}
 		});
 
@@ -75,16 +92,19 @@ class MenuBar extends JMenuBar {
 		file.addSeparator();
 		file.add(saveMap);
 		file.add(saveMapAs);
+		file.addSeparator();
+		file.add(saveProject);
 		return file;
 	}
 
-	public JMenu createImportMenu() {
+	private JMenu createImportMenu() {
 		JMenu menu = new JMenu("Import");
 		JMenuItem spritesheet = new JMenuItem("Spritesheet");
 		spritesheet.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				JFileChooser fileChooser = new JFileChooser();
+				fileChooser.setCurrentDirectory(new File(PreferenceManager.getString(PreferenceManager.IMPORT_LAST_LOCATION, "C:\\")));
 				fileChooser.setFileFilter(new FileFilter() {
 					@Override
 					public boolean accept(File f) {
@@ -97,11 +117,25 @@ class MenuBar extends JMenuBar {
 					}
 				});
 				if (fileChooser.showDialog(null, "Open") == JFileChooser.APPROVE_OPTION) {
+					PreferenceManager.putString(PreferenceManager.IMPORT_LAST_LOCATION, fileChooser.getCurrentDirectory().getAbsolutePath());
 					SpriteManager.showSpriteCutterDialog(fileChooser.getSelectedFile());
 				}
 			}
 		});
 		menu.add(spritesheet);
+		return menu;
+	}
+
+	private JMenu createTestMenu() {
+		JMenu menu = new JMenu("Test");
+		JMenuItem parallax = new JMenuItem("Parallax");
+		parallax.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				ParallaxLayerManager.showTestWindow();
+			}
+		});
+		menu.add(parallax);
 		return menu;
 	}
 }

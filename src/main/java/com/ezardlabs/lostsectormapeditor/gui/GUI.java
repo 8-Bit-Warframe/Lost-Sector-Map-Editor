@@ -3,7 +3,8 @@ package com.ezardlabs.lostsectormapeditor.gui;
 import com.ezardlabs.lostsectormapeditor.Main;
 import com.ezardlabs.lostsectormapeditor.PreferenceManager;
 import com.ezardlabs.lostsectormapeditor.map.MapManager;
-import com.ezardlabs.lostsectormapeditor.map.layers.LayerManager;
+import com.ezardlabs.lostsectormapeditor.map.layers.main.LayerManager;
+import com.ezardlabs.lostsectormapeditor.map.layers.parallax.ParallaxLayerManager;
 import com.ezardlabs.lostsectormapeditor.project.ProjectManager;
 
 import java.awt.BorderLayout;
@@ -42,7 +43,7 @@ import javax.swing.filechooser.FileView;
 public class GUI extends JFrame {
 	static {
 		try {
-			UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -53,9 +54,15 @@ public class GUI extends JFrame {
 	private JDialog dialog;
 
 	private GUI() {
+		setTitle("Lost Sector Map Editor");
+
 		setJMenuBar(new MenuBar());
 
-		JSplitPane sideBar = new JSplitPane(JSplitPane.VERTICAL_SPLIT, tabPanel, LayerManager.getLayerPanel());
+		JTabbedPane layersParallaxTabs = new JTabbedPane();
+		layersParallaxTabs.addTab("Layers", LayerManager.getLayerPanel());
+		layersParallaxTabs.addTab("Parallax", ParallaxLayerManager.getLayerPanel());
+
+		JSplitPane sideBar = new JSplitPane(JSplitPane.VERTICAL_SPLIT, tabPanel, layersParallaxTabs);
 		JSplitPane projectMap = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, ProjectManager.getProjectPanel(), MapManager.getMapPanel());
 		JSplitPane main = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, projectMap, sideBar);
 		add(main);
@@ -280,21 +287,26 @@ public class GUI extends JFrame {
 		c.gridy = 0;
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.weightx = 0.2;
-		p.add(new JLabel("Width:"), c);
+		p.add(new JLabel("Name:"), c);
 		c.gridy = 1;
+		p.add(new JLabel("Width:"), c);
+		c.gridy = 2;
 		p.add(new JLabel("Height:"), c);
 		c.weightx = 0.8;
 		c.gridx = 1;
 		c.gridy = 0;
-		final IntegerField if1 = new IntegerField();
-		p.add(if1, c);
+		final JTextField tf = new JTextField();
+		p.add(tf, c);
 		c.gridy = 1;
+		IntegerField if1 = new IntegerField();
+		p.add(if1, c);
+		c.gridy = 2;
 		IntegerField if2 = new IntegerField();
 		p.add(if2, c);
 		if1.addAncestorListener(new AncestorListener() {
 			@Override
 			public void ancestorAdded(AncestorEvent event) {
-				if1.requestFocusInWindow();
+				tf.requestFocusInWindow();
 			}
 
 			@Override
@@ -307,7 +319,7 @@ public class GUI extends JFrame {
 		});
 		if (JOptionPane.showConfirmDialog(null, p, "Enter map size:", JOptionPane.OK_CANCEL_OPTION) == 0) {
 			ProjectManager.refresh();
-			MapManager.createNewMap(Integer.parseInt(if1.getText()), Integer.parseInt(if2.getText()));
+			MapManager.createNewMap(tf.getText(), if1.getInteger(), if2.getInteger());
 		}
 	}
 }

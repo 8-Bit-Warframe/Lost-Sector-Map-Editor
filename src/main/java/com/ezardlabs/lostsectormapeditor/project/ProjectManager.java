@@ -53,6 +53,19 @@ public class ProjectManager {
 		}
 	}
 
+	public static void saveCurrentProject() {
+		if (currentProject != null) {
+			File projectFile = new File(currentProject.getDirectory() + File.separator + ".demp");
+			try {
+				BufferedWriter writer = new BufferedWriter(new FileWriter(projectFile));
+				writer.write(new Gson().toJson(currentProject));
+				writer.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
 	public static Project getCurrentProject() {
 		return currentProject;
 	}

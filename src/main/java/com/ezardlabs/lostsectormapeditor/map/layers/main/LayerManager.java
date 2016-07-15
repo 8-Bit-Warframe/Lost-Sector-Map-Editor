@@ -1,4 +1,4 @@
-package com.ezardlabs.lostsectormapeditor.map.layers;
+package com.ezardlabs.lostsectormapeditor.map.layers.main;
 
 import javax.swing.DefaultListModel;
 
@@ -22,7 +22,15 @@ public class LayerManager {
 		return layers;
 	}
 
+	public static int getNumLayers() {
+		return layers.size();
+	}
+
 	public static LayerPanel getLayerPanel() {
 		return layerPanel;
+	}
+
+	public static void clearLayers() {
+		layers.clear();
 	}
 }

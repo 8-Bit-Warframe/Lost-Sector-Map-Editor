@@ -8,20 +8,20 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Point;
 
-public class Map {
+class Map {
 	private static final int TILE_SIZE = 16;
 	private int width;
 	private int height;
 	private Layer[] layers = new Layer[0];
 	private ParallaxLayer[] parallaxLayers = new ParallaxLayer[0];
 
-	public Map(int width, int height) {
+	Map(int width, int height) {
 		this.width = width;
 		this.height = height;
 		LayerManager.getLayers().addElement(new Layer("Main"));
 	}
 
-	public void draw(Graphics2D g, Point camera, double zoom) {
+	void draw(Graphics2D g, Point camera, double zoom) {
 		g.setColor(Color.BLACK);
 		g.fillRect(0, 0, width * TILE_SIZE, height * TILE_SIZE);
 
@@ -40,19 +40,19 @@ public class Map {
 		}
 	}
 
-	public void setLayers(Layer[] layers) {
+	void setLayers(Layer[] layers) {
 		this.layers = layers;
 	}
 
-	public Layer[] getLayers() {
+	Layer[] getLayers() {
 		return layers;
 	}
 
-	public void setParallaxLayers(ParallaxLayer[] parallaxLayers) {
+	void setParallaxLayers(ParallaxLayer[] parallaxLayers) {
 		this.parallaxLayers = parallaxLayers;
 	}
 
-	public ParallaxLayer[] getParallaxLayers() {
+	ParallaxLayer[] getParallaxLayers() {
 		return parallaxLayers;
 	}
 }

@@ -33,6 +33,7 @@ import javax.swing.JSplitPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 import javax.swing.SpringLayout;
+import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.WindowConstants;
 import javax.swing.event.AncestorEvent;
@@ -84,9 +85,13 @@ public class GUI extends JFrame {
 
 		projectMap.setOneTouchExpandable(true);
 		main.setOneTouchExpandable(true);
-		sideBar.setDividerLocation((int) (0.5 * getHeight()));
-		projectMap.setDividerLocation((int) (0.15 * getWidth()));
-		main.setDividerLocation((int) (0.8 * getWidth()));
+
+		SwingUtilities.invokeLater(() -> {
+			projectMap.getLeftComponent().setMinimumSize(sideBar.getMinimumSize());
+			sideBar.setDividerLocation((int) (0.5 * getHeight()));
+			projectMap.setDividerLocation((int) (0.15 * getWidth()));
+			main.setDividerLocation((int) (0.8 * getWidth()));
+		});
 	}
 
 	public static GUI getInstance() {

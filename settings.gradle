@@ -1,2 +1,5 @@
 rootProject.name = 'LostSectorMapEditor'
+include 'dethsquare'
+include 'dethsquare:core'
+include 'dethsquare:desktop'
 
